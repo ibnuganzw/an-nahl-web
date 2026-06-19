@@ -91,15 +91,20 @@ export default function KisahView() {
   useEffect(() => {
     let active = true;
     (async () => {
-      const { data } = await supabase
-        .from("articles")
-        .select("*")
-        .eq("status", "published")
-        .in("kategori", KISAH_CATS)
-        .order("tanggal_publikasi", { ascending: false });
-      if (!active) return;
-      setArticles((data ?? []).map((r) => mapArticle(r as ArticleRow)));
-      setLoading(false);
+      try {
+        const { data } = await supabase
+          .from("articles")
+          .select("*")
+          .eq("status", "published")
+          .in("kategori", KISAH_CATS)
+          .order("tanggal_publikasi", { ascending: false })
+          .abortSignal(AbortSignal.timeout(8000));
+        if (active) setArticles((data ?? []).map((r) => mapArticle(r as ArticleRow)));
+      } catch {
+        /* biarkan kosong jika gagal */
+      } finally {
+        if (active) setLoading(false);
+      }
     })();
     return () => {
       active = false;

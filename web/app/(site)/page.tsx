@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import HomeArticles from "@/components/HomeArticles";
+import HomeEvents from "@/components/HomeEvents";
 
 const TOPICS = [
   {
@@ -32,62 +34,6 @@ const TOPICS = [
     icon: (
       <path d="M3 11h18M3 11a4 4 0 0 0 4 4h6M3 11l1.5-5.5A2 2 0 0 1 6.4 4h2.2M21 3l-4 4m0 0-2.5 2.5M17 7l2.5 2.5" />
     ),
-  },
-];
-
-const ARTICLES = [
-  {
-    n: "01",
-    cover: "linear-gradient(135deg,#1C3C6B,#16315B)",
-    coverOpacity: "rgba(255,255,255,0.25)",
-    cat: "Kajian",
-    catColor: "text-teal",
-    catBg: "bg-teal-bg",
-    read: "5 mnt baca",
-    title: "Amanah terhadap makhluk: belajar ihsan dari ruang praktik",
-  },
-  {
-    n: "02",
-    cover: "linear-gradient(135deg,#2F7E72,#256258)",
-    coverOpacity: "rgba(255,255,255,0.25)",
-    cat: "Kisah",
-    catColor: "text-gold",
-    catBg: "bg-gold-bg",
-    read: "4 mnt baca",
-    title: "Catatan koass: menjaga shalat di tengah jadwal jaga klinik",
-  },
-  {
-    n: "03",
-    cover: "linear-gradient(135deg,#C5A24D,#A8862F)",
-    coverOpacity: "rgba(255,255,255,0.30)",
-    cat: "Fikih",
-    catColor: "text-teal",
-    catBg: "bg-teal-bg",
-    read: "6 mnt baca",
-    title: "Mengenal batas najis mughallazhah dalam penanganan satwa",
-  },
-];
-
-const EVENTS = [
-  {
-    month: "Jun",
-    day: "27",
-    weekday: "Jum'at",
-    cat: "Kajian Rutin",
-    catColor: "text-teal",
-    catBg: "bg-teal-bg",
-    title: "Kajian An-Nahl: Adab Merawat Makhluk Hidup",
-    meta: "16.00 WIB · Mushalla FKH USK",
-  },
-  {
-    month: "Jul",
-    day: "05",
-    weekday: "Sabtu",
-    cat: "Workshop",
-    catColor: "text-gold",
-    catBg: "bg-gold-bg",
-    title: "Bedah Fikih: Penyembelihan Halal & Praktiknya",
-    meta: "08.30 WIB · Aula FKH USK",
   },
 ];
 
@@ -241,40 +187,7 @@ export default function Beranda() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-5">
-            {ARTICLES.map((a) => (
-              <Link
-                key={a.n}
-                href="/kisah-kajian"
-                className="flex flex-col overflow-hidden rounded-2xl border border-border bg-white"
-              >
-                <div
-                  className="flex h-[150px] items-end p-4"
-                  style={{ background: a.cover }}
-                >
-                  <span
-                    className="font-serif text-[42px] font-bold"
-                    style={{ color: a.coverOpacity }}
-                  >
-                    {a.n}
-                  </span>
-                </div>
-                <div className="p-[22px]">
-                  <div className="mb-3 flex items-center gap-2.5">
-                    <span
-                      className={`rounded-full px-2.5 py-1 text-[11.5px] font-bold uppercase tracking-[0.04em] ${a.catColor} ${a.catBg}`}
-                    >
-                      {a.cat}
-                    </span>
-                    <span className="text-[13px] text-light">{a.read}</span>
-                  </div>
-                  <h3 className="m-0 font-serif text-[19px] font-semibold leading-[1.3] text-navy">
-                    {a.title}
-                  </h3>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <HomeArticles />
         </div>
       </section>
 
@@ -295,35 +208,7 @@ export default function Beranda() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[18px]">
-            {EVENTS.map((e) => (
-              <div
-                key={e.title}
-                className="flex gap-[18px] rounded-2xl border border-border bg-white p-[22px]"
-              >
-                <div className="w-[72px] flex-none rounded-xl bg-navy px-2 py-3.5 text-center text-white">
-                  <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-gold">
-                    {e.month}
-                  </div>
-                  <div className="font-serif text-[30px] font-bold leading-none">
-                    {e.day}
-                  </div>
-                  <div className="text-[11px] text-footer-text">{e.weekday}</div>
-                </div>
-                <div className="min-w-0 flex-1">
-                  <span
-                    className={`rounded-full px-2.5 py-1 text-[11.5px] font-bold uppercase tracking-[0.04em] ${e.catColor} ${e.catBg}`}
-                  >
-                    {e.cat}
-                  </span>
-                  <h3 className="mb-2 mt-3 font-serif text-[19px] font-semibold text-navy">
-                    {e.title}
-                  </h3>
-                  <p className="m-0 text-[13.5px] text-muted2">{e.meta}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <HomeEvents />
         </div>
       </section>
 

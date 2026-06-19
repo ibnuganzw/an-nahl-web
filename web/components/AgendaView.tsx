@@ -114,13 +114,18 @@ export default function AgendaView() {
   useEffect(() => {
     let active = true;
     (async () => {
-      const { data } = await supabase
-        .from("events")
-        .select("*")
-        .order("tanggal", { ascending: true });
-      if (!active) return;
-      setEvents((data ?? []).map((r) => mapEvent(r as EventRow)));
-      setLoadingEvents(false);
+      try {
+        const { data } = await supabase
+          .from("events")
+          .select("*")
+          .order("tanggal", { ascending: true })
+          .abortSignal(AbortSignal.timeout(8000));
+        if (active) setEvents((data ?? []).map((r) => mapEvent(r as EventRow)));
+      } catch {
+        /* biarkan kosong jika gagal */
+      } finally {
+        if (active) setLoadingEvents(false);
+      }
     })();
     return () => {
       active = false;
