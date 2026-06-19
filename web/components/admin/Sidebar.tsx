@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useAdminData } from "@/components/admin/AdminDataProvider";
 
 const NAV = [
   {
@@ -55,7 +56,7 @@ const NAV = [
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const router = useRouter();
+  const { signOut } = useAdminData();
 
   return (
     <aside className="sticky top-0 flex h-screen w-[244px] flex-none flex-col bg-navy-dark text-footer-text">
@@ -113,7 +114,7 @@ export default function Sidebar() {
 
       <div className="border-t border-white/[0.08] p-3">
         <button
-          onClick={() => router.push("/admin/login")}
+          onClick={signOut}
           className="flex w-full cursor-pointer items-center gap-3 rounded-[10px] px-3 py-2.5 text-sm font-medium text-footer-text hover:bg-white/[0.06] hover:text-white"
         >
           <svg

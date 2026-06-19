@@ -4,16 +4,30 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 export default function LoginForm() {
   const router = useRouter();
-  const [email, setEmail] = useState("admin@annahl.id");
+  const [supabase] = useState(() => createClient());
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // UI-only: autentikasi asli (Supabase) disambung belakangan.
-    router.push("/admin");
+    setLoading(true);
+    setError(null);
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    setLoading(false);
+    if (signInError) {
+      setError("Email atau kata sandi salah, atau akun belum terdaftar.");
+      return;
+    }
+    router.replace("/admin");
   };
 
   return (
@@ -64,22 +78,31 @@ export default function LoginForm() {
           </label>
           <input
             type="password"
+            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
             className="mb-5 w-full rounded-[10px] border border-border bg-white px-3.5 py-3 text-sm text-navy"
           />
 
+          {error && (
+            <p className="mb-4 rounded-[10px] bg-[#FBEAE8] px-3.5 py-2.5 text-center text-[13px] font-medium text-[#C0392B]">
+              {error}
+            </p>
+          )}
+
           <button
             type="submit"
-            className="w-full cursor-pointer rounded-[11px] border-none bg-gold p-3.5 text-[15px] font-bold text-gold-on"
+            disabled={loading}
+            className={`w-full rounded-[11px] border-none bg-gold p-3.5 text-[15px] font-bold text-gold-on ${
+              loading ? "cursor-not-allowed opacity-70" : "cursor-pointer"
+            }`}
           >
-            Masuk
+            {loading ? "Memproses…" : "Masuk"}
           </button>
 
           <p className="mt-4 rounded-lg bg-bg-soft px-3 py-2.5 text-center text-xs leading-[1.5] text-muted2">
-            Demo UI — klik <strong className="text-navy">Masuk</strong> untuk
-            lanjut ke dashboard. Autentikasi Supabase disambung kemudian.
+            Gunakan akun admin yang terdaftar di Supabase Auth.
           </p>
         </form>
 

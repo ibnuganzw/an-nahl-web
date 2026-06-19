@@ -4,17 +4,21 @@ import Link from "next/link";
 import PageHead from "@/components/admin/PageHead";
 import {
   EVENT_TYPES,
+  isFikihCat,
   useAdminData,
 } from "@/components/admin/AdminDataProvider";
+import { formatTanggal, formatTanggalSingkat } from "@/lib/date-id";
 
 export default function AdminOverview() {
-  const { fikih, kisah, agenda, members, participants } = useAdminData();
+  const { loading, articles, events, members, registrations } = useAdminData();
 
-  const upcoming = agenda.filter((e) => !e.past);
+  const fikihCount = articles.filter((a) => isFikihCat(a.kategori)).length;
+  const kisahCount = articles.length - fikihCount;
+  const upcoming = events.filter((e) => !formatTanggal(e.tanggal).past);
 
   const stats = [
-    { label: "Artikel Fikih", value: fikih.length, href: "/admin/fikih", tone: "navy" },
-    { label: "Kisah & Kajian", value: kisah.length, href: "/admin/kisah", tone: "gold" },
+    { label: "Artikel Fikih", value: fikihCount, href: "/admin/fikih", tone: "navy" },
+    { label: "Kisah & Kajian", value: kisahCount, href: "/admin/kisah", tone: "gold" },
     { label: "Agenda mendatang", value: upcoming.length, href: "/admin/agenda", tone: "teal" },
     { label: "Pendaftar anggota", value: members.length, href: "/admin/pendaftaran", tone: "navy" },
   ];
@@ -27,6 +31,10 @@ export default function AdminOverview() {
       />
 
       <div className="p-7">
+        {loading && (
+          <p className="mb-4 text-sm text-muted">Memuat data dari Supabase…</p>
+        )}
+
         <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
           {stats.map((s) => (
             <Link
@@ -56,7 +64,6 @@ export default function AdminOverview() {
         </div>
 
         <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-5">
-          {/* Pendaftar terbaru */}
           <div className="rounded-2xl border border-border bg-white">
             <div className="flex items-center justify-between border-b border-border px-5 py-4">
               <h2 className="m-0 font-serif text-[17px] font-semibold text-navy">
@@ -70,6 +77,11 @@ export default function AdminOverview() {
               </Link>
             </div>
             <div className="flex flex-col">
+              {members.length === 0 && (
+                <div className="px-5 py-4 text-sm text-light">
+                  Belum ada pendaftar.
+                </div>
+              )}
               {members.slice(0, 4).map((m) => (
                 <div
                   key={m.id}
@@ -83,7 +95,8 @@ export default function AdminOverview() {
                       {m.nama}
                     </div>
                     <div className="text-xs text-light">
-                      Angkatan {m.angkatan} · {m.date}
+                      Angkatan {m.angkatan} ·{" "}
+                      {formatTanggalSingkat(m.tanggal_daftar)}
                     </div>
                   </div>
                 </div>
@@ -91,7 +104,6 @@ export default function AdminOverview() {
             </div>
           </div>
 
-          {/* Agenda akan datang */}
           <div className="rounded-2xl border border-border bg-white">
             <div className="flex items-center justify-between border-b border-border px-5 py-4">
               <h2 className="m-0 font-serif text-[17px] font-semibold text-navy">
@@ -105,23 +117,28 @@ export default function AdminOverview() {
               </Link>
             </div>
             <div className="flex flex-col">
+              {upcoming.length === 0 && (
+                <div className="px-5 py-4 text-sm text-light">
+                  Belum ada kegiatan mendatang.
+                </div>
+              )}
               {upcoming.map((e) => (
                 <div
                   key={e.id}
                   className="border-b border-border px-5 py-3 last:border-0"
                 >
                   <div className="mb-1 text-sm font-semibold text-navy">
-                    {e.title}
+                    {e.judul}
                   </div>
                   <div className="text-xs text-light">
-                    {EVENT_TYPES[e.type]} · {e.fullDate} · {e.filled}/{e.quota}{" "}
-                    peserta
+                    {EVENT_TYPES[e.type]} · {formatTanggal(e.tanggal).full} ·{" "}
+                    {e.filled}/{e.kuota} peserta
                   </div>
                 </div>
               ))}
-              {participants.length > 0 && (
+              {registrations.length > 0 && (
                 <div className="px-5 py-3 text-xs text-muted2">
-                  Total {participants.length} peserta kegiatan terdaftar.
+                  Total {registrations.length} peserta kegiatan terdaftar.
                 </div>
               )}
             </div>
