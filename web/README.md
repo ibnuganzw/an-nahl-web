@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LDF An-Nahl — FKH USK
 
-## Getting Started
+Situs web **Lembaga Dakwah Fakultas An-Nahl**, Fakultas Kedokteran Hewan,
+Universitas Syiah Kuala — _"Merawat hewan, menjaga iman."_
 
-First, run the development server:
+Aplikasi ini terdiri dari **situs publik** (profil lembaga, rubrik fikih
+veteriner, kisah & kajian, agenda kegiatan, dan pendaftaran anggota) serta
+**dashboard admin** untuk mengelola konten dan melihat data pendaftaran.
+
+> **Status:** tahap UI. Seluruh halaman dan alur sudah berfungsi dengan data
+> contoh (_mock_) di sisi klien. Form dan autentikasi belum tersambung ke
+> backend — titik integrasi **Supabase** sudah disiapkan di lapisan data dan
+> form untuk dikerjakan berikutnya.
+
+## Teknologi
+
+- [Next.js 16](https://nextjs.org) (App Router, Turbopack)
+- React 19 + TypeScript
+- [Tailwind CSS v4](https://tailwindcss.com) — token desain dipusatkan di `app/globals.css`
+- Font: Lora (serif), Plus Jakarta Sans (sans), Amiri (Arab)
+
+## Menjalankan secara lokal
+
+Butuh Node.js 20+.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install      # pasang dependensi
+npm run dev      # server pengembangan di http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Perintah lain:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build    # build produksi
+npm run start    # jalankan hasil build
+npm run lint     # ESLint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Struktur
 
-## Learn More
+```
+app/
+  (site)/              Situs publik (memakai Header + Footer bersama)
+    page.tsx           Beranda
+    fikih-veteriner/   Pojok Fikih Veteriner (daftar + detail + filter)
+    kisah-kajian/      Ruang Kisah & Kajian
+    agenda/            Agenda kegiatan + form pendaftaran
+    gabung/            Form gabung anggota
+    tentang/           Tentang lembaga
+  admin/
+    login/             Halaman masuk admin
+    (panel)/           Dashboard (sidebar) — ringkasan & CRUD
+      page.tsx         Ringkasan
+      fikih/           CRUD Artikel Fikih
+      kisah/           CRUD Kisah & Kajian
+      agenda/          CRUD Agenda
+      pendaftaran/     Data pendaftar (lihat saja)
+  layout.tsx           Root layout (html, font, global styles)
+  globals.css          Token warna/font + base styles
 
-To learn more about Next.js, take a look at the following resources:
+components/
+  Header, Footer, GabungForm, FikihView, KisahView, AgendaView
+  admin/               AdminDataProvider, Sidebar, AdminModal, PageHead, LoginForm
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Pemisahan layout memakai **route group**: halaman publik berada di grup
+`(site)` yang membawa Header/Footer, sedangkan area `/admin` punya tampilannya
+sendiri (sidebar) tanpa chrome publik. Data admin dikelola di memori melalui
+`AdminDataProvider` (React Context) sehingga operasi tambah/ubah/hapus
+tercermin lintas halaman selama sesi berjalan.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Catatan integrasi (berikutnya)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Autentikasi admin** — `components/admin/LoginForm.tsx` saat ini hanya
+  mengarahkan ke dashboard; sambungkan ke Supabase Auth.
+- **Data konten & pendaftaran** — ganti data contoh di
+  `components/admin/AdminDataProvider.tsx` dan form publik dengan kueri Supabase.
