@@ -213,7 +213,7 @@ export default function KisahView() {
                   <button
                     key={a.id}
                     onClick={() => open(a.id)}
-                    className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[#ECE6D8] bg-white text-left"
+                    className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[#ECE6D8] bg-white text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,49,91,0.10)]"
                   >
                     <div style={coverStyle(catMeta(a.cat).c, 156)}>
                       <span className="font-arabic text-[26px] text-white/85">
@@ -341,7 +341,7 @@ export default function KisahView() {
                 <button
                   key={a.id}
                   onClick={() => open(a.id)}
-                  className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[#ECE6D8] bg-white text-left"
+                  className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[#ECE6D8] bg-white text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,49,91,0.10)]"
                 >
                   <div style={coverStyle(catMeta(a.cat).c, 156)}>
                     <span className="font-arabic text-[32px] text-white/85">

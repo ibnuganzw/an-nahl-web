@@ -50,7 +50,22 @@ export default function HomeArticles() {
   }, [supabase]);
 
   if (loading) {
-    return <p className="py-4 text-muted">Memuat tulisan…</p>;
+    return (
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-5">
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            className="overflow-hidden rounded-2xl border border-border bg-white"
+          >
+            <div className="h-[150px] animate-pulse bg-[#EDEFF3]" />
+            <div className="p-[22px]">
+              <div className="mb-3 h-4 w-20 animate-pulse rounded-full bg-[#EDEFF3]" />
+              <div className="h-5 w-3/4 animate-pulse rounded bg-[#EDEFF3]" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   }
   if (articles.length === 0) {
     return (
@@ -67,7 +82,7 @@ export default function HomeArticles() {
           <Link
             key={a.id}
             href={`${meta.href}?artikel=${a.id}`}
-            className="flex flex-col overflow-hidden rounded-2xl border border-border bg-white"
+            className="flex flex-col overflow-hidden rounded-2xl border border-border bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,49,91,0.10)]"
           >
             <div
               className="flex h-[150px] items-end p-4"

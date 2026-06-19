@@ -453,10 +453,38 @@ export default function AgendaView() {
                       </h3>
                       <div className="mb-3 flex flex-wrap gap-x-5 gap-y-2 text-[13.5px] text-muted2">
                         <span className="inline-flex items-center gap-1.5">
-                          ◷ {e.time}
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-none text-teal"
+                          >
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M12 7v5l3 2" />
+                          </svg>
+                          {e.time}
                         </span>
                         <span className="inline-flex items-center gap-1.5">
-                          ⚲ {e.location}
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-none text-teal"
+                          >
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                            <circle cx="12" cy="10" r="3" />
+                          </svg>
+                          {e.location}
                         </span>
                       </div>
                       <p className="m-0 text-[14.5px] leading-[1.6] text-muted">

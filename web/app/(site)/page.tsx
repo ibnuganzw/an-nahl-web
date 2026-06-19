@@ -68,13 +68,13 @@ export default function Beranda() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/kisah-kajian"
-                className="inline-flex items-center gap-2 rounded-xl bg-navy px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(22,49,91,0.20)]"
+                className="inline-flex items-center gap-2 rounded-xl bg-navy px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(22,49,91,0.20)] transition-transform hover:-translate-y-0.5"
               >
                 Baca Kajian →
               </Link>
               <Link
                 href="/agenda"
-                className="inline-flex items-center gap-2 rounded-xl border border-[#D8DDE6] bg-white px-6 py-3.5 text-[15px] font-semibold text-navy"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#D8DDE6] bg-white px-6 py-3.5 text-[15px] font-semibold text-navy transition-colors hover:border-navy"
               >
                 Lihat Agenda
               </Link>
@@ -136,7 +136,7 @@ export default function Beranda() {
               <Link
                 key={topic.title}
                 href="/fikih-veteriner"
-                className="block rounded-2xl border border-white/[0.10] bg-[#1C3C6B] p-[26px]"
+                className="block rounded-2xl border border-white/[0.10] bg-[#1C3C6B] p-[26px] transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-[#22467d]"
               >
                 <div className="mb-5 flex h-[52px] w-[52px] items-center justify-center rounded-[13px] bg-teal/[0.22]">
                   <svg
