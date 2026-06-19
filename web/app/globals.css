@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand colors */
+  --color-navy: #16315B;
+  --color-navy-dark: #10243F;
+  --color-gold: #C5A24D;
+  --color-gold-on: #1A1407;
+  --color-teal: #2F7E72;
+  --color-teal-bg: #E8F1EF;
+  --color-gold-bg: #F6EFDD;
+
+  /* Neutrals */
+  --color-body: #3A4556;
+  --color-muted: #5B6573;
+  --color-muted2: #677488;
+  --color-light: #8A93A3;
+  --color-placeholder: #9AA8C0;
+  --color-border: #E6E9EF;
+  --color-bg-soft: #F5F7FA;
+
+  /* Form on navy */
+  --color-form-label: #C5D0E0;
+  --color-form-hint: #B9C2D4;
+  --color-form-footer: #8595AD;
+
+  /* Footer */
+  --color-footer-text: #B9C2D4;
+  --color-footer-sub: #7E8AA0;
+
+  /* Fonts */
+  --font-serif: var(--font-lora), Georgia, serif;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-arabic: var(--font-amiri), serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #ffffff;
+  font-family: var(--font-sans);
+  color: #3a4556;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #c5a24d !important;
+  box-shadow: 0 0 0 3px rgba(197, 162, 77, 0.22);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9aa8c0;
+}
