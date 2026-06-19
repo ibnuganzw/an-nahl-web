@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; color: #3A4556; -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; color: inherit; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:#FFFFFF;">
+
+  <!-- ===== HEADER ===== -->
+  <header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border-bottom:1px solid #E6E9EF;">
+    <div style="max-width:1120px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+      <a href="#" style="display:flex; align-items:center; gap:12px; margin-right:auto;">
+        <img src="assets/logo-annahl.jpg" alt="LDF An-Nahl" style="width:44px; height:44px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 1px #E6E9EF;">
+        <span style="display:flex; flex-direction:column; line-height:1.1;">
+          <span style="font-family:'Lora',serif; font-weight:600; font-size:17px; color:#16315B; letter-spacing:-0.01em;">LDF An-Nahl</span>
+          <span style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:#8A93A3; font-weight:500;">FKH USK</span>
+        </span>
+      </a>
+      <nav style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
+        <a href="#" style="padding:8px 12px; font-size:14px; font-weight:600; color:#16315B; border-radius:8px;">Beranda</a>
+        <a href="#fikih" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Fikih Veteriner</a>
+        <a href="#kajian" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Kisah &amp; Kajian</a>
+        <a href="#agenda" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Agenda</a>
+        <a href="#" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Tentang</a>
+      </nav>
+      <a href="#" style="display:inline-flex; align-items:center; gap:8px; padding:10px 18px; background:#C5A24D; color:#1A1407; font-size:14px; font-weight:700; border-radius:10px; box-shadow:0 1px 2px rgba(20,30,50,0.08);">Gabung</a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section style="position:relative; overflow:hidden; background:#F5F7FA;">
+    <div style="position:absolute; inset:0; background:radial-gradient(900px 380px at 85% -10%, rgba(47,126,114,0.10), transparent 60%), radial-gradient(700px 320px at 0% 110%, rgba(22,49,91,0.07), transparent 55%);"></div>
+    <div style="position:relative; max-width:1120px; margin:0 auto; padding:64px 20px 72px; display:flex; flex-wrap:wrap; align-items:center; gap:40px;">
+      <div style="flex:1 1 380px; min-width:300px;">
+        <span style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; background:#FFFFFF; border:1px solid #E6E9EF; border-radius:999px; font-size:12.5px; font-weight:600; letter-spacing:0.04em; color:#2F7E72; margin-bottom:22px;">
+          <span style="width:7px; height:7px; border-radius:50%; background:#2F7E72; display:inline-block;"></span>
+          Dakwah khas Fakultas Kedokteran Hewan
+        </span>
+        <h1 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(34px,6vw,54px); line-height:1.08; letter-spacing:-0.015em; color:#16315B; margin:0 0 18px;">Merawat hewan,<br><span style="color:#C5A24D;">menjaga iman.</span></h1>
+        <p style="font-size:clamp(16px,2.4vw,18px); line-height:1.65; color:#5B6573; max-width:520px; margin:0 0 30px;">Ruang dakwah bagi mahasiswa FKH USK — tempat syariat Islam dan dunia kedokteran hewan bertemu. Tumbuh secara spiritual sekaligus profesional.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:12px;">
+          <a href="#kajian" style="display:inline-flex; align-items:center; gap:8px; padding:14px 24px; background:#16315B; color:#FFFFFF; font-size:15px; font-weight:600; border-radius:12px; box-shadow:0 6px 18px rgba(22,49,91,0.20);">Baca Kajian →</a>
+          <a href="#agenda" style="display:inline-flex; align-items:center; gap:8px; padding:14px 24px; background:#FFFFFF; color:#16315B; font-size:15px; font-weight:600; border-radius:12px; border:1px solid #D8DDE6;">Lihat Agenda</a>
+        </div>
+      </div>
+      <div style="flex:0 1 320px; min-width:240px; display:flex; justify-content:center;">
+        <div style="position:relative; width:300px; height:300px; display:flex; align-items:center; justify-content:center;">
+          <div style="position:absolute; inset:0; border-radius:50%; background:#FFFFFF; box-shadow:0 24px 60px rgba(22,49,91,0.14); border:1px solid #EDEFF3;"></div>
+          <div style="position:absolute; inset:18px; border-radius:50%; border:1px dashed #D8DDE6;"></div>
+          <img src="assets/logo-annahl.jpg" alt="Logo LDF An-Nahl" style="position:relative; width:200px; height:200px; border-radius:50%; object-fit:cover;">
+          <div style="position:absolute; bottom:6px; left:50%; transform:translateX(-50%); white-space:nowrap; font-family:'Amiri',serif; font-size:20px; color:#16315B; opacity:0.55;">النَّحْل</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED: POJOK FIKIH VETERINER ===== -->
+  <section id="fikih" style="position:relative; background:#16315B; overflow:hidden;">
+    <div style="position:absolute; inset:0; background:radial-gradient(800px 360px at 90% 0%, rgba(197,162,77,0.14), transparent 60%), radial-gradient(700px 320px at -5% 100%, rgba(47,126,114,0.18), transparent 55%);"></div>
+    <div style="position:relative; max-width:1120px; margin:0 auto; padding:72px 20px 80px;">
+      <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:40px;">
+        <div style="max-width:620px;">
+          <span style="display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#C5A24D; margin-bottom:14px;">★ Rubrik Unggulan</span>
+          <h2 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(28px,4.5vw,40px); line-height:1.12; letter-spacing:-0.01em; color:#FFFFFF; margin:0 0 12px;">Pojok Fikih Veteriner</h2>
+          <p style="font-size:16px; line-height:1.65; color:#B9C2D4; margin:0;">Panduan ringkas memadukan ilmu syar'i dengan praktik kedokteran hewan — dari kandang sampai ruang praktik.</p>
+        </div>
+        <a href="#" style="display:inline-flex; align-items:center; gap:8px; padding:11px 18px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.18); color:#FFFFFF; font-size:14px; font-weight:600; border-radius:10px;">Semua topik →</a>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px;">
+
+        <a href="#" style="display:block; background:#1C3C6B; border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:26px;">
+          <div style="width:52px; height:52px; border-radius:13px; background:rgba(47,126,114,0.22); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5DBBA9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>
+          </div>
+          <h3 style="font-family:'Lora',serif; font-weight:600; font-size:20px; color:#FFFFFF; margin:0 0 8px;">Kesejahteraan Hewan dalam Islam</h3>
+          <p style="font-size:14.5px; line-height:1.6; color:#A9B4C8; margin:0 0 16px;">Prinsip <em>rahmah</em> dan amanah terhadap makhluk hidup dalam tuntunan syariat.</p>
+          <span style="font-size:13.5px; font-weight:600; color:#C5A24D;">Pelajari →</span>
+        </a>
+
+        <a href="#" style="display:block; background:#1C3C6B; border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:26px;">
+          <div style="width:52px; height:52px; border-radius:13px; background:rgba(47,126,114,0.22); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5DBBA9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7Z"/></svg>
+          </div>
+          <h3 style="font-family:'Lora',serif; font-weight:600; font-size:20px; color:#FFFFFF; margin:0 0 8px;">Fikih Najis &amp; Medis</h3>
+          <p style="font-size:14.5px; line-height:1.6; color:#A9B4C8; margin:0 0 16px;">Hukum najis, thaharah, dan penanganannya dalam konteks praktik klinis hewan.</p>
+          <span style="font-size:13.5px; font-weight:600; color:#C5A24D;">Pelajari →</span>
+        </a>
+
+        <a href="#" style="display:block; background:#1C3C6B; border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:26px;">
+          <div style="width:52px; height:52px; border-radius:13px; background:rgba(47,126,114,0.22); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5DBBA9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18M3 11a4 4 0 0 0 4 4h6M3 11l1.5-5.5A2 2 0 0 1 6.4 4h2.2M21 3l-4 4m0 0-2.5 2.5M17 7l2.5 2.5"/></svg>
+          </div>
+          <h3 style="font-family:'Lora',serif; font-weight:600; font-size:20px; color:#FFFFFF; margin:0 0 8px;">Penyembelihan Halal</h3>
+          <p style="font-size:14.5px; line-height:1.6; color:#A9B4C8; margin:0 0 16px;">Syarat sembelihan, <em>tadzkiyah</em>, dan etika menyembelih sesuai tuntunan.</p>
+          <span style="font-size:13.5px; font-weight:600; color:#C5A24D;">Pelajari →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== KISAH & KAJIAN ===== -->
+  <section id="kajian" style="background:#FFFFFF;">
+    <div style="max-width:1120px; margin:0 auto; padding:72px 20px;">
+      <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:32px;">
+        <div>
+          <span style="display:block; font-size:12.5px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#2F7E72; margin-bottom:10px;">Ruang Kisah &amp; Kajian</span>
+          <h2 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(26px,4vw,36px); color:#16315B; margin:0; letter-spacing:-0.01em;">Tulisan terbaru</h2>
+        </div>
+        <a href="#" style="font-size:14px; font-weight:600; color:#16315B;">Lihat semua →</a>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px;">
+
+        <a href="#" style="display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #E6E9EF; border-radius:16px; overflow:hidden;">
+          <div style="height:150px; background:linear-gradient(135deg,#1C3C6B,#16315B); display:flex; align-items:flex-end; padding:16px;"><span style="font-family:'Lora',serif; color:rgba(255,255,255,0.25); font-size:42px; font-weight:700;">01</span></div>
+          <div style="padding:22px;">
+            <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px;">
+              <span style="font-size:11.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:#2F7E72; background:#E8F1EF; padding:4px 10px; border-radius:999px;">Kajian</span>
+              <span style="font-size:13px; color:#8A93A3;">5 mnt baca</span>
+            </div>
+            <h3 style="font-family:'Lora',serif; font-weight:600; font-size:19px; line-height:1.3; color:#16315B; margin:0;">Amanah terhadap makhluk: belajar ihsan dari ruang praktik</h3>
+          </div>
+        </a>
+
+        <a href="#" style="display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #E6E9EF; border-radius:16px; overflow:hidden;">
+          <div style="height:150px; background:linear-gradient(135deg,#2F7E72,#256258); display:flex; align-items:flex-end; padding:16px;"><span style="font-family:'Lora',serif; color:rgba(255,255,255,0.25); font-size:42px; font-weight:700;">02</span></div>
+          <div style="padding:22px;">
+            <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px;">
+              <span style="font-size:11.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:#C5A24D; background:#F6EFDD; padding:4px 10px; border-radius:999px;">Kisah</span>
+              <span style="font-size:13px; color:#8A93A3;">4 mnt baca</span>
+            </div>
+            <h3 style="font-family:'Lora',serif; font-weight:600; font-size:19px; line-height:1.3; color:#16315B; margin:0;">Catatan koass: menjaga shalat di tengah jadwal jaga klinik</h3>
+          </div>
+        </a>
+
+        <a href="#" style="display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #E6E9EF; border-radius:16px; overflow:hidden;">
+          <div style="height:150px; background:linear-gradient(135deg,#C5A24D,#A8862F); display:flex; align-items:flex-end; padding:16px;"><span style="font-family:'Lora',serif; color:rgba(255,255,255,0.30); font-size:42px; font-weight:700;">03</span></div>
+          <div style="padding:22px;">
+            <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px;">
+              <span style="font-size:11.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:#2F7E72; background:#E8F1EF; padding:4px 10px; border-radius:999px;">Fikih</span>
+              <span style="font-size:13px; color:#8A93A3;">6 mnt baca</span>
+            </div>
+            <h3 style="font-family:'Lora',serif; font-weight:600; font-size:19px; line-height:1.3; color:#16315B; margin:0;">Mengenal batas najis mughallazhah dalam penanganan satwa</h3>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AGENDA ===== -->
+  <section id="agenda" style="background:#F5F7FA;">
+    <div style="max-width:1120px; margin:0 auto; padding:72px 20px;">
+      <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:32px;">
+        <div>
+          <span style="display:block; font-size:12.5px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#2F7E72; margin-bottom:10px;">Agenda terdekat</span>
+          <h2 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(26px,4vw,36px); color:#16315B; margin:0; letter-spacing:-0.01em;">Kegiatan mendatang</h2>
+        </div>
+        <a href="#" style="font-size:14px; font-weight:600; color:#16315B;">Semua agenda →</a>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px;">
+
+        <div style="display:flex; gap:18px; background:#FFFFFF; border:1px solid #E6E9EF; border-radius:16px; padding:22px;">
+          <div style="flex:none; width:72px; text-align:center; background:#16315B; border-radius:12px; padding:14px 8px; color:#FFFFFF;">
+            <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#C5A24D;">Jun</div>
+            <div style="font-family:'Lora',serif; font-size:30px; font-weight:700; line-height:1;">27</div>
+            <div style="font-size:11px; color:#B9C2D4;">Jum'at</div>
+          </div>
+          <div style="flex:1; min-width:0;">
+            <span style="font-size:11.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:#2F7E72; background:#E8F1EF; padding:4px 10px; border-radius:999px;">Kajian Rutin</span>
+            <h3 style="font-family:'Lora',serif; font-weight:600; font-size:19px; color:#16315B; margin:12px 0 8px;">Kajian An-Nahl: Adab Merawat Makhluk Hidup</h3>
+            <p style="font-size:13.5px; color:#677488; margin:0;">16.00 WIB · Mushalla FKH USK</p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:18px; background:#FFFFFF; border:1px solid #E6E9EF; border-radius:16px; padding:22px;">
+          <div style="flex:none; width:72px; text-align:center; background:#16315B; border-radius:12px; padding:14px 8px; color:#FFFFFF;">
+            <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#C5A24D;">Jul</div>
+            <div style="font-family:'Lora',serif; font-size:30px; font-weight:700; line-height:1;">05</div>
+            <div style="font-size:11px; color:#B9C2D4;">Sabtu</div>
+          </div>
+          <div style="flex:1; min-width:0;">
+            <span style="font-size:11.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:#C5A24D; background:#F6EFDD; padding:4px 10px; border-radius:999px;">Workshop</span>
+            <h3 style="font-family:'Lora',serif; font-weight:600; font-size:19px; color:#16315B; margin:12px 0 8px;">Bedah Fikih: Penyembelihan Halal &amp; Praktiknya</h3>
+            <p style="font-size:13.5px; color:#677488; margin:0;">08.30 WIB · Aula FKH USK</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA STRIP ===== -->
+  <section style="background:#FFFFFF;">
+    <div style="max-width:1120px; margin:0 auto; padding:8px 20px 64px;">
+      <div style="background:#16315B; border-radius:20px; padding:clamp(28px,5vw,48px); display:flex; flex-wrap:wrap; align-items:center; gap:24px; justify-content:space-between; position:relative; overflow:hidden;">
+        <div style="position:absolute; inset:0; background:radial-gradient(500px 220px at 100% 0%, rgba(197,162,77,0.16), transparent 60%);"></div>
+        <div style="position:relative; max-width:560px;">
+          <h2 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(24px,3.6vw,32px); color:#FFFFFF; margin:0 0 10px; letter-spacing:-0.01em;">Tumbuh bersama keluarga An-Nahl</h2>
+          <p style="font-size:15.5px; line-height:1.6; color:#B9C2D4; margin:0;">Terbuka bagi seluruh mahasiswa Fakultas Kedokteran Hewan USK yang ingin berkembang spiritual dan profesional.</p>
+        </div>
+        <a href="#" style="position:relative; display:inline-flex; align-items:center; gap:8px; padding:15px 28px; background:#C5A24D; color:#1A1407; font-size:15px; font-weight:700; border-radius:12px;">Gabung sekarang →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="background:#10243F; color:#B9C2D4;">
+    <div style="max-width:1120px; margin:0 auto; padding:52px 20px 28px;">
+      <div style="display:flex; flex-wrap:wrap; gap:32px; justify-content:space-between; margin-bottom:36px;">
+        <div style="max-width:330px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <img src="assets/logo-annahl.jpg" alt="LDF An-Nahl" style="width:46px; height:46px; border-radius:50%; object-fit:cover; background:#fff; padding:1px;">
+            <span style="display:flex; flex-direction:column; line-height:1.15;">
+              <span style="font-family:'Lora',serif; font-weight:600; font-size:17px; color:#FFFFFF;">LDF An-Nahl</span>
+              <span style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:#7E8AA0;">FKH USK</span>
+            </span>
+          </div>
+          <p style="font-size:14px; line-height:1.65; margin:0; color:#94A0B6;">Lembaga Dakwah Fakultas Kedokteran Hewan, Universitas Syiah Kuala. Merawat hewan, menjaga iman.</p>
+        </div>
+        <div style="display:flex; gap:56px; flex-wrap:wrap;">
+          <div>
+            <h4 style="font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#7E8AA0; margin:0 0 16px;">Jelajahi</h4>
+            <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
+              <a href="#fikih">Fikih Veteriner</a>
+              <a href="#kajian">Kisah &amp; Kajian</a>
+              <a href="#agenda">Agenda</a>
+              <a href="#">Tentang</a>
+            </div>
+          </div>
+          <div>
+            <h4 style="font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#7E8AA0; margin:0 0 16px;">Terhubung</h4>
+            <div style="display:flex; flex-direction:column; gap:11px; font-size:14px;">
+              <a href="#">Instagram</a>
+              <a href="#">Gabung jadi anggota</a>
+              <a href="#">Kontak pengurus</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:22px; display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; font-size:13px; color:#7E8AA0;">
+        <span>© 2026 LDF An-Nahl FKH USK. Seluruh hak cipta.</span>
+        <span style="font-family:'Amiri',serif; font-size:15px;">وَاللَّهُ خَيْرُ الرَّازِقِينَ</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+</body>
+</html>

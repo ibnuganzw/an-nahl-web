@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; color: #3A4556; -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; color: inherit; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:#FFFFFF;">
+
+  <!-- ===== HEADER ===== -->
+  <header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border-bottom:1px solid #E6E9EF;">
+    <div style="max-width:1120px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+      <a href="Beranda.dc.html" style="display:flex; align-items:center; gap:12px; margin-right:auto;">
+        <img src="assets/logo-annahl.jpg" alt="LDF An-Nahl" style="width:44px; height:44px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 1px #E6E9EF;">
+        <span style="display:flex; flex-direction:column; line-height:1.1;">
+          <span style="font-family:'Lora',serif; font-weight:600; font-size:17px; color:#16315B; letter-spacing:-0.01em;">LDF An-Nahl</span>
+          <span style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:#8A93A3; font-weight:500;">FKH USK</span>
+        </span>
+      </a>
+      <nav style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
+        <a href="Beranda.dc.html" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Beranda</a>
+        <a href="Pojok Fikih Veteriner.dc.html" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Fikih Veteriner</a>
+        <a href="Ruang Kisah & Kajian.dc.html" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Kisah &amp; Kajian</a>
+        <a href="Agenda.dc.html" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Agenda</a>
+        <a href="#" style="padding:8px 12px; font-size:14px; font-weight:600; color:#16315B; border-radius:8px;">Tentang</a>
+      </nav>
+      <a href="#" style="display:inline-flex; align-items:center; gap:8px; padding:10px 18px; background:#C5A24D; color:#1A1407; font-size:14px; font-weight:700; border-radius:10px;">Gabung</a>
+    </div>
+  </header>
+
+  <!-- ===== 1. PROFIL ===== -->
+  <section style="position:relative; overflow:hidden; background:#F5F7FA;">
+    <div style="position:absolute; inset:0; background:radial-gradient(820px 360px at 88% -10%, rgba(47,126,114,0.10), transparent 60%), radial-gradient(640px 300px at -5% 110%, rgba(22,49,91,0.07), transparent 55%);"></div>
+    <div style="position:relative; max-width:1120px; margin:0 auto; padding:60px 20px 64px; display:flex; flex-wrap:wrap; gap:44px; align-items:center;">
+      <div style="flex:1 1 380px; min-width:300px;">
+        <span style="display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#2F7E72; margin-bottom:16px;">Tentang kami</span>
+        <h1 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(32px,5.5vw,50px); line-height:1.1; letter-spacing:-0.015em; color:#16315B; margin:0 0 18px;">Rumah bertumbuh mahasiswa FKH USK</h1>
+        <p style="font-size:clamp(16px,2.3vw,18px); line-height:1.7; color:#5B6573; margin:0; max-width:540px;">Lembaga Dakwah Fakultas (LDF) An-Nahl adalah UKM keislaman di Fakultas Kedokteran Hewan Universitas Syiah Kuala — wadah dakwah yang dekat dengan keseharian dunia veteriner, tempat mahasiswa tumbuh secara spiritual sekaligus profesional.</p>
+      </div>
+      <div style="flex:0 1 280px; min-width:220px; display:flex; justify-content:center;">
+        <div style="position:relative; width:240px; height:240px; display:flex; align-items:center; justify-content:center;">
+          <div style="position:absolute; inset:0; border-radius:50%; background:#FFFFFF; box-shadow:0 20px 50px rgba(22,49,91,0.12); border:1px solid #EDEFF3;"></div>
+          <div style="position:absolute; inset:16px; border-radius:50%; border:1px dashed #D8DDE6;"></div>
+          <img src="assets/logo-annahl.jpg" alt="Logo LDF An-Nahl" style="position:relative; width:168px; height:168px; border-radius:50%; object-fit:cover;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visi-Misi -->
+  <section style="max-width:1120px; margin:0 auto; padding:64px 20px 8px;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px;">
+      <div style="background:#16315B; border-radius:18px; padding:32px; position:relative; overflow:hidden;">
+        <div style="position:absolute; inset:0; background:radial-gradient(380px 200px at 100% 0%, rgba(197,162,77,0.16), transparent 60%);"></div>
+        <span style="position:relative; display:block; font-size:12px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#C5A24D; margin-bottom:14px;">Visi</span>
+        <p style="position:relative; font-family:'Lora',serif; font-weight:500; font-size:21px; line-height:1.5; color:#FFFFFF; margin:0;">Menjadi rumah dakwah yang membentuk mahasiswa FKH berakhlak mulia, berilmu, dan bermanfaat bagi sesama makhluk.</p>
+        <p style="position:relative; font-size:13px; color:#8595AD; margin:18px 0 0; font-style:italic;">Contoh — sesuaikan dengan AD/ART resmi.</p>
+      </div>
+      <div style="background:#FFFFFF; border:1px solid #E6E9EF; border-radius:18px; padding:32px;">
+        <span style="display:block; font-size:12px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#2F7E72; margin-bottom:16px;">Misi</span>
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="flex:none; width:24px; height:24px; border-radius:50%; background:#E8F1EF; color:#2F7E72; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">1</span><span style="font-size:15.5px; line-height:1.55; color:#3A4556;">Menyelenggarakan kajian rutin yang memadukan ilmu syar'i dan dunia veteriner.</span></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="flex:none; width:24px; height:24px; border-radius:50%; background:#E8F1EF; color:#2F7E72; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">2</span><span style="font-size:15.5px; line-height:1.55; color:#3A4556;">Membina kader dakwah yang tangguh, tertib, dan bermanfaat seperti lebah.</span></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><span style="flex:none; width:24px; height:24px; border-radius:50%; background:#E8F1EF; color:#2F7E72; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;">3</span><span style="font-size:15.5px; line-height:1.55; color:#3A4556;">Menjadi wadah syiar dan pengabdian di lingkungan FKH dan masyarakat.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 2. SEJARAH — TIMELINE ===== -->
+  <section style="max-width:880px; margin:0 auto; padding:72px 20px 8px;">
+    <div style="text-align:center; margin-bottom:48px;">
+      <span style="display:inline-block; font-size:12.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#2F7E72; margin-bottom:12px;">Perjalanan kami</span>
+      <h2 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(28px,4.5vw,40px); color:#16315B; margin:0; letter-spacing:-0.01em;">Sejarah An-Nahl</h2>
+    </div>
+
+    <div style="position:relative; padding-left:8px;">
+      <!-- rail -->
+      <div style="position:absolute; left:23px; top:8px; bottom:8px; width:2px; background:linear-gradient(#C5A24D, #E6E9EF);"></div>
+
+      <div style="position:relative; display:flex; gap:24px; padding-bottom:34px;">
+        <div style="flex:none; position:relative; z-index:1; width:48px; height:48px; border-radius:50%; background:#16315B; border:4px solid #FFFFFF; box-shadow:0 0 0 1px #E6E9EF; display:flex; align-items:center; justify-content:center; color:#C5A24D; font-family:'Lora',serif; font-weight:700; font-size:13px;">▸</div>
+        <div style="flex:1; padding-top:4px;">
+          <div style="font-family:'Lora',serif; font-weight:700; font-size:22px; color:#C5A24D; margin-bottom:6px;">20XX</div>
+          <h3 style="font-family:'Lora',serif; font-weight:600; font-size:19px; color:#16315B; margin:0 0 8px;">Lingkaran kajian pertama</h3>
+          <p style="font-size:15px; line-height:1.65; color:#5B6573; margin:0;">Berawal dari kegelisahan sekelompok mahasiswa FKH USK akan perlunya wadah dakwah yang dekat dengan dunia veteriner.</p>
+        </div>
+      </div>
+
+      <div style="position:relative; display:flex; gap:24px; padding-bottom:34px;">
+        <div style="flex:none; position:relative; z-index:1; width:48px; height:48px; border-radius:50%; background:#16315B; border:4px solid #FFFFFF; box-shadow:0 0 0 1px #E6E9EF; display:flex; align-items:center; justify-content:center; color:#C5A24D; font-family:'Lora',serif; font-weight:700; font-size:13px;">▸</div>
+        <div style="flex:1; padding-top:4px;">
+          <div style="font-family:'Lora',serif; font-weight:700; font-size:22px; color:#C5A24D; margin-bottom:6px;">20XX</div>
+          <h3 style="font-family:'Lora',serif; font-weight:600; font-size:19px; color:#16315B; margin:0 0 8px;">Resmi menjadi UKM FKH USK</h3>
+          <p style="font-size:15px; line-height:1.65; color:#5B6573; margin:0;">An-Nahl diakui sebagai unit kegiatan mahasiswa, menaungi kajian rutin, mentoring, dan syiar di lingkungan fakultas.</p>
+        </div>
+      </div>
+
+      <div style="position:relative; display:flex; gap:24px; padding-bottom:34px;">
+        <div style="flex:none; position:relative; z-index:1; width:48px; height:48px; border-radius:50%; background:#16315B; border:4px solid #FFFFFF; box-shadow:0 0 0 1px #E6E9EF; display:flex; align-items:center; justify-content:center; color:#C5A24D; font-family:'Lora',serif; font-weight:700; font-size:13px;">▸</div>
+        <div style="flex:1; padding-top:4px;">
+          <div style="font-family:'Lora',serif; font-weight:700; font-size:22px; color:#C5A24D; margin-bottom:6px;">20XX</div>
+          <h3 style="font-family:'Lora',serif; font-weight:600; font-size:19px; color:#16315B; margin:0 0 8px;">Kegiatan unggulan perdana</h3>
+          <p style="font-size:15px; line-height:1.65; color:#5B6573; margin:0;">Penyelenggaraan kajian akbar / mabit perdana yang menandai tumbuhnya An-Nahl sebagai gerakan dakwah fakultas.</p>
+        </div>
+      </div>
+
+      <div style="position:relative; display:flex; gap:24px; padding-bottom:0;">
+        <div style="flex:none; position:relative; z-index:1; width:48px; height:48px; border-radius:50%; background:#C5A24D; border:4px solid #FFFFFF; box-shadow:0 0 0 1px #E6E9EF; display:flex; align-items:center; justify-content:center; color:#1A1407; font-family:'Lora',serif; font-weight:700; font-size:13px;">●</div>
+        <div style="flex:1; padding-top:4px;">
+          <div style="font-family:'Lora',serif; font-weight:700; font-size:22px; color:#C5A24D; margin-bottom:6px;">2026</div>
+          <h3 style="font-family:'Lora',serif; font-weight:600; font-size:19px; color:#16315B; margin:0 0 8px;">Peluncuran web app An-Nahl</h3>
+          <p style="font-size:15px; line-height:1.65; color:#5B6573; margin:0;">An-Nahl melangkah ke ruang digital — portal dakwah, kajian, dan agenda untuk seluruh mahasiswa FKH USK.</p>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center; font-size:13px; color:#9AA3B2; font-style:italic; margin:40px 0 0;">Tahun &amp; peristiwa di atas masih contoh — lengkapi dengan data asli dari arsip/senior An-Nahl.</p>
+  </section>
+
+  <!-- ===== 3. MAKNA NAMA AN-NAHL ===== -->
+  <section style="position:relative; overflow:hidden; background:#16315B; margin-top:72px;">
+    <div style="position:absolute; inset:0; background:radial-gradient(720px 340px at 90% 0%, rgba(197,162,77,0.18), transparent 60%), radial-gradient(640px 300px at -5% 100%, rgba(47,126,114,0.18), transparent 55%);"></div>
+    <div style="position:relative; max-width:1000px; margin:0 auto; padding:72px 20px 80px; display:flex; flex-wrap:wrap; gap:48px; align-items:center;">
+      <div style="flex:none; width:200px; display:flex; flex-direction:column; align-items:center; text-align:center; margin:0 auto;">
+        <div style="font-family:'Amiri',serif; font-size:84px; line-height:1; color:#C5A24D; margin-bottom:12px;">النَّحْل</div>
+        <div style="font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:#B9C2D4;">An-Nahl · Lebah</div>
+      </div>
+      <div style="flex:1 1 360px; min-width:300px;">
+        <span style="display:inline-block; font-size:12.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#C5A24D; margin-bottom:16px;">Makna nama</span>
+        <h2 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(26px,4vw,36px); line-height:1.2; color:#FFFFFF; margin:0 0 18px; letter-spacing:-0.01em;">Mengapa "An-Nahl"?</h2>
+        <p style="font-size:16.5px; line-height:1.75; color:#C5D0E0; margin:0 0 18px;">Nama <em>An-Nahl</em> — yang berarti "lebah" — diabadikan sebagai salah satu surah dalam Al-Qur'an. Lebah dipilih sebagai simbol kerja yang <strong style="color:#FFFFFF; font-weight:600;">bermanfaat, tertib, dan menghasilkan kebaikan</strong> bagi sekitarnya.</p>
+        <p style="font-size:16.5px; line-height:1.75; color:#C5D0E0; margin:0;">Ia hinggap di tempat yang baik, memakan yang baik, dan mengeluarkan yang baik pula — madu yang menyembuhkan. Begitulah harapan bagi setiap anggota An-Nahl: hadir membawa manfaat, di mana pun ia berada.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 4. STRUKTUR ORGANISASI ===== -->
+  <section style="max-width:1120px; margin:0 auto; padding:72px 20px 80px;">
+    <div style="text-align:center; margin-bottom:44px;">
+      <span style="display:inline-block; font-size:12.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#2F7E72; margin-bottom:12px;">Pengurus</span>
+      <h2 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(28px,4.5vw,40px); color:#16315B; margin:0; letter-spacing:-0.01em;">Struktur Organisasi</h2>
+    </div>
+
+    <!-- Ketua featured -->
+    <div style="display:flex; justify-content:center; margin-bottom:32px;">
+      <div style="width:240px; background:#FFFFFF; border:1px solid #E6E9EF; border-radius:18px; padding:28px 24px; text-align:center; box-shadow:0 12px 32px rgba(22,49,91,0.07);">
+        <div style="width:96px; height:96px; border-radius:50%; margin:0 auto 16px; background:#EAEEF5; display:flex; align-items:center; justify-content:center;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16315B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+        </div>
+        <div style="font-family:'Lora',serif; font-weight:600; font-size:18px; color:#16315B;">Nama Pengurus</div>
+        <div style="font-size:13px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:#C5A24D; margin-top:5px;">Ketua Umum</div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:18px;">
+
+      <div style="background:#FFFFFF; border:1px solid #E6E9EF; border-radius:16px; padding:24px 18px; text-align:center;">
+        <div style="width:76px; height:76px; border-radius:50%; margin:0 auto 14px; background:#F5F7FA; display:flex; align-items:center; justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8A93A3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+        <div style="font-family:'Lora',serif; font-weight:600; font-size:16px; color:#16315B;">Nama Pengurus</div>
+        <div style="font-size:12px; font-weight:600; color:#677488; margin-top:4px;">Wakil Ketua</div>
+      </div>
+
+      <div style="background:#FFFFFF; border:1px solid #E6E9EF; border-radius:16px; padding:24px 18px; text-align:center;">
+        <div style="width:76px; height:76px; border-radius:50%; margin:0 auto 14px; background:#F5F7FA; display:flex; align-items:center; justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8A93A3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+        <div style="font-family:'Lora',serif; font-weight:600; font-size:16px; color:#16315B;">Nama Pengurus</div>
+        <div style="font-size:12px; font-weight:600; color:#677488; margin-top:4px;">Sekretaris</div>
+      </div>
+
+      <div style="background:#FFFFFF; border:1px solid #E6E9EF; border-radius:16px; padding:24px 18px; text-align:center;">
+        <div style="width:76px; height:76px; border-radius:50%; margin:0 auto 14px; background:#F5F7FA; display:flex; align-items:center; justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8A93A3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+        <div style="font-family:'Lora',serif; font-weight:600; font-size:16px; color:#16315B;">Nama Pengurus</div>
+        <div style="font-size:12px; font-weight:600; color:#677488; margin-top:4px;">Bendahara</div>
+      </div>
+
+      <div style="background:#FFFFFF; border:1px solid #E6E9EF; border-radius:16px; padding:24px 18px; text-align:center;">
+        <div style="width:76px; height:76px; border-radius:50%; margin:0 auto 14px; background:#F5F7FA; display:flex; align-items:center; justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8A93A3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+        <div style="font-family:'Lora',serif; font-weight:600; font-size:16px; color:#16315B;">Nama Pengurus</div>
+        <div style="font-size:12px; font-weight:600; color:#677488; margin-top:4px;">Kadiv Syiar</div>
+      </div>
+
+      <div style="background:#FFFFFF; border:1px solid #E6E9EF; border-radius:16px; padding:24px 18px; text-align:center;">
+        <div style="width:76px; height:76px; border-radius:50%; margin:0 auto 14px; background:#F5F7FA; display:flex; align-items:center; justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8A93A3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+        <div style="font-family:'Lora',serif; font-weight:600; font-size:16px; color:#16315B;">Nama Pengurus</div>
+        <div style="font-size:12px; font-weight:600; color:#677488; margin-top:4px;">Kadiv Kaderisasi</div>
+      </div>
+
+      <div style="background:#FFFFFF; border:1px solid #E6E9EF; border-radius:16px; padding:24px 18px; text-align:center;">
+        <div style="width:76px; height:76px; border-radius:50%; margin:0 auto 14px; background:#F5F7FA; display:flex; align-items:center; justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8A93A3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+        <div style="font-family:'Lora',serif; font-weight:600; font-size:16px; color:#16315B;">Nama Pengurus</div>
+        <div style="font-size:12px; font-weight:600; color:#677488; margin-top:4px;">Kadiv Kemuslimahan</div>
+      </div>
+
+      <div style="background:#FFFFFF; border:1px solid #E6E9EF; border-radius:16px; padding:24px 18px; text-align:center;">
+        <div style="width:76px; height:76px; border-radius:50%; margin:0 auto 14px; background:#F5F7FA; display:flex; align-items:center; justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8A93A3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+        <div style="font-family:'Lora',serif; font-weight:600; font-size:16px; color:#16315B;">Nama Pengurus</div>
+        <div style="font-size:12px; font-weight:600; color:#677488; margin-top:4px;">Kadiv Humas &amp; Media</div>
+      </div>
+
+      <div style="background:#FAF7F0; border:1px dashed #D8C9A8; border-radius:16px; padding:24px 18px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <div style="width:48px; height:48px; border-radius:50%; margin:0 auto 12px; background:#F6EFDD; color:#C5A24D; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:300;">+</div>
+        <div style="font-size:13.5px; font-weight:600; color:#A8862F; line-height:1.4;">Bergabung jadi<br>pengurus berikutnya?</div>
+      </div>
+
+    </div>
+
+    <p style="text-align:center; font-size:13px; color:#9AA3B2; font-style:italic; margin:36px 0 0;">Nama &amp; foto pengurus masih placeholder — lengkapi dengan data kepengurusan terkini.</p>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="background:#10243F; color:#B9C2D4;">
+    <div style="max-width:1120px; margin:0 auto; padding:44px 20px 28px; display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/logo-annahl.jpg" alt="LDF An-Nahl" style="width:42px; height:42px; border-radius:50%; object-fit:cover; background:#fff; padding:1px;">
+        <span style="display:flex; flex-direction:column; line-height:1.15;">
+          <span style="font-family:'Lora',serif; font-weight:600; font-size:16px; color:#FFFFFF;">LDF An-Nahl FKH USK</span>
+          <span style="font-size:12px; color:#7E8AA0;">Merawat hewan, menjaga iman.</span>
+        </span>
+      </div>
+      <span style="font-size:13px; color:#7E8AA0;">© 2026 LDF An-Nahl FKH USK.</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+</body>
+</html>

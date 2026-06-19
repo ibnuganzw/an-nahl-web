@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; color: #3A4556; -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; color: inherit; }
+  input, select, textarea, button { font-family: inherit; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: #16315B !important; box-shadow: 0 0 0 3px rgba(22,49,91,0.10); }
+  input::placeholder, textarea::placeholder { color: #A6AEBC; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:#FFFFFF;">
+
+  <!-- ===== HEADER ===== -->
+  <header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border-bottom:1px solid #E6E9EF;">
+    <div style="max-width:1120px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+      <a href="Beranda.dc.html" style="display:flex; align-items:center; gap:12px; margin-right:auto;">
+        <img src="assets/logo-annahl.jpg" alt="LDF An-Nahl" style="width:44px; height:44px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 1px #E6E9EF;">
+        <span style="display:flex; flex-direction:column; line-height:1.1;">
+          <span style="font-family:'Lora',serif; font-weight:600; font-size:17px; color:#16315B; letter-spacing:-0.01em;">LDF An-Nahl</span>
+          <span style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:#8A93A3; font-weight:500;">FKH USK</span>
+        </span>
+      </a>
+      <nav style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
+        <a href="Beranda.dc.html" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Beranda</a>
+        <a href="Pojok Fikih Veteriner.dc.html" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Fikih Veteriner</a>
+        <a href="Ruang Kisah & Kajian.dc.html" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Kisah &amp; Kajian</a>
+        <a href="#" style="padding:8px 12px; font-size:14px; font-weight:600; color:#16315B; border-radius:8px;">Agenda</a>
+        <a href="#" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Tentang</a>
+      </nav>
+      <a href="#" style="display:inline-flex; align-items:center; gap:8px; padding:10px 18px; background:#C5A24D; color:#1A1407; font-size:14px; font-weight:700; border-radius:10px;">Gabung</a>
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- ============== A. LIST VIEW =============================== -->
+  <!-- ============================================================ -->
+  <sc-if value="{{ showList }}" hint-placeholder-val="{{ true }}">
+  <div>
+
+    <!-- Intro -->
+    <section style="max-width:1120px; margin:0 auto; padding:56px 20px 8px;">
+      <span style="display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#2F7E72; margin-bottom:16px;">Kegiatan An-Nahl</span>
+      <h1 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(32px,5.5vw,48px); line-height:1.1; letter-spacing:-0.015em; color:#16315B; margin:0 0 16px;">Agenda</h1>
+      <p style="font-size:clamp(15px,2.2vw,17px); line-height:1.7; color:#5B6573; margin:0; max-width:600px;">Kajian rutin, workshop, dan kegiatan syiar di lingkungan FKH USK. Terbuka untuk seluruh mahasiswa — daftar dan ikut bertumbuh bersama.</p>
+    </section>
+
+    <!-- Upcoming -->
+    <section style="max-width:1120px; margin:0 auto; padding:36px 20px 0;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:22px;">
+        <span style="width:9px; height:9px; border-radius:50%; background:#2F7E72; display:inline-block;"></span>
+        <h2 style="font-family:'Lora',serif; font-weight:700; font-size:22px; color:#16315B; margin:0;">Akan datang</h2>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <sc-for list="{{ upcoming }}" as="e" hint-placeholder-count="3">
+          <div style="display:flex; flex-wrap:wrap; gap:20px; background:#FFFFFF; border:1px solid #E6E9EF; border-radius:18px; padding:22px; align-items:flex-start;">
+            <div style="flex:none; width:80px; text-align:center; background:#16315B; border-radius:14px; padding:16px 8px; color:#FFFFFF;">
+              <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#C5A24D;">{{ e.month }}</div>
+              <div style="font-family:'Lora',serif; font-size:34px; font-weight:700; line-height:1;">{{ e.day }}</div>
+              <div style="font-size:11px; color:#B9C2D4;">{{ e.weekday }}</div>
+            </div>
+            <div style="flex:1 1 260px; min-width:240px;">
+              <span style="{{ e.badgeStyle }}">{{ e.typeLabel }}</span>
+              <h3 style="font-family:'Lora',serif; font-weight:600; font-size:20px; line-height:1.3; color:#16315B; margin:12px 0 10px;">{{ e.title }}</h3>
+              <div style="display:flex; flex-wrap:wrap; gap:8px 20px; margin-bottom:12px; font-size:13.5px; color:#677488;">
+                <span style="display:inline-flex; align-items:center; gap:6px;">◷ {{ e.time }}</span>
+                <span style="display:inline-flex; align-items:center; gap:6px;">⚲ {{ e.location }}</span>
+              </div>
+              <p style="font-size:14.5px; line-height:1.6; color:#5B6573; margin:0;">{{ e.desc }}</p>
+            </div>
+            <div style="flex:none; display:flex; align-items:center;">
+              <a onClick="{{ e.open }}" style="display:inline-flex; align-items:center; gap:7px; padding:12px 22px; background:#C5A24D; color:#1A1407; font-size:14px; font-weight:700; border-radius:10px; cursor:pointer; white-space:nowrap;">Daftar →</a>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- Past -->
+    <section style="max-width:1120px; margin:0 auto; padding:44px 20px 80px;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:22px;">
+        <span style="width:9px; height:9px; border-radius:50%; background:#C2C8D2; display:inline-block;"></span>
+        <h2 style="font-family:'Lora',serif; font-weight:700; font-size:22px; color:#8A93A3; margin:0;">Sudah berlalu</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px;">
+        <sc-for list="{{ past }}" as="e" hint-placeholder-count="2">
+          <div onClick="{{ e.open }}" style="display:flex; gap:16px; background:#F8F9FB; border:1px solid #ECEEF2; border-radius:16px; padding:18px; align-items:flex-start; cursor:pointer; opacity:0.85;">
+            <div style="flex:none; width:64px; text-align:center; background:#E7EAEF; border-radius:12px; padding:12px 6px; color:#8A93A3;">
+              <div style="font-size:10.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;">{{ e.month }}</div>
+              <div style="font-family:'Lora',serif; font-size:26px; font-weight:700; line-height:1; color:#5B6573;">{{ e.day }}</div>
+            </div>
+            <div style="flex:1; min-width:0;">
+              <span style="display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#8A93A3; background:#E7EAEF; padding:3px 9px; border-radius:999px; margin-bottom:9px;">Selesai · {{ e.typeLabel }}</span>
+              <h3 style="font-family:'Lora',serif; font-weight:600; font-size:17px; line-height:1.3; color:#5B6573; margin:0 0 6px;">{{ e.title }}</h3>
+              <span style="font-size:13px; color:#9AA3B2;">{{ e.location }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============================================================ -->
+  <!-- ============== B. DETAIL VIEW ============================= -->
+  <!-- ============================================================ -->
+  <sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">
+  <div style="background:#FBFBFC;">
+    <div style="max-width:1040px; margin:0 auto; padding:28px 20px 80px;">
+
+      <a onClick="{{ goList }}" style="display:inline-flex; align-items:center; gap:7px; font-size:14px; font-weight:600; color:#677488; margin-bottom:24px; cursor:pointer;">← Kembali ke Agenda</a>
+
+      <!-- Poster -->
+      <div style="{{ sel.posterStyle }}">
+        <sc-if value="{{ sel.isPast }}" hint-placeholder-val="{{ false }}">
+          <span style="position:absolute; top:18px; right:18px; font-size:11.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#FFFFFF; background:rgba(0,0,0,0.35); padding:6px 13px; border-radius:999px;">Selesai</span>
+        </sc-if>
+        <span style="{{ sel.posterBadgeStyle }}">{{ sel.typeLabel }}</span>
+        <h1 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(26px,4.5vw,40px); line-height:1.15; letter-spacing:-0.01em; color:#FFFFFF; margin:14px 0 0; max-width:680px;">{{ sel.title }}</h1>
+      </div>
+
+      <!-- Two-column: info + form -->
+      <div style="display:flex; flex-wrap:wrap; gap:24px; margin-top:28px; align-items:flex-start;">
+
+        <!-- Left: info + desc -->
+        <div style="flex:1 1 380px; min-width:300px;">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-bottom:32px;">
+            <div style="background:#FFFFFF; border:1px solid #E6E9EF; border-radius:14px; padding:16px;">
+              <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8A93A3; margin-bottom:7px;">Tanggal</div>
+              <div style="font-size:15px; font-weight:600; color:#16315B;">{{ sel.fullDate }}</div>
+            </div>
+            <div style="background:#FFFFFF; border:1px solid #E6E9EF; border-radius:14px; padding:16px;">
+              <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8A93A3; margin-bottom:7px;">Waktu</div>
+              <div style="font-size:15px; font-weight:600; color:#16315B;">{{ sel.time }}</div>
+            </div>
+            <div style="background:#FFFFFF; border:1px solid #E6E9EF; border-radius:14px; padding:16px;">
+              <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8A93A3; margin-bottom:7px;">Lokasi</div>
+              <div style="font-size:15px; font-weight:600; color:#16315B;">{{ sel.location }}</div>
+            </div>
+            <div style="background:#FFFFFF; border:1px solid #E6E9EF; border-radius:14px; padding:16px;">
+              <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8A93A3; margin-bottom:7px;">Kuota</div>
+              <div style="font-size:15px; font-weight:600; color:#16315B;">{{ sel.quotaText }}</div>
+              <div style="margin-top:9px; height:6px; background:#EDEFF3; border-radius:999px; overflow:hidden;">
+                <div style="{{ sel.quotaBarStyle }}"></div>
+              </div>
+            </div>
+          </div>
+
+          <h2 style="font-family:'Lora',serif; font-weight:600; font-size:22px; color:#16315B; margin:0 0 14px; letter-spacing:-0.01em;">Tentang kegiatan</h2>
+          <p style="font-size:16px; line-height:1.75; color:#3A4556; margin:0 0 18px;">{{ sel.desc }}</p>
+          <p style="font-size:16px; line-height:1.75; color:#3A4556; margin:0;">Kegiatan ini terbuka untuk seluruh mahasiswa Fakultas Kedokteran Hewan USK, baik anggota maupun non-anggota An-Nahl. Mohon hadir 10 menit sebelum acara dimulai. Tautan grup koordinasi akan dikirim setelah pendaftaran.</p>
+        </div>
+
+        <!-- Right: registration form -->
+        <div style="flex:1 1 320px; min-width:290px; position:sticky; top:80px;">
+          <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ submit }}" style="background:#16315B; border-radius:18px; padding:26px;">
+            <h3 style="font-family:'Lora',serif; font-weight:600; font-size:20px; color:#FFFFFF; margin:0 0 5px;">Daftar kegiatan</h3>
+            <p style="font-size:13.5px; color:#B9C2D4; margin:0 0 20px;">Isi data singkat berikut untuk mengamankan tempatmu.</p>
+
+            <label style="display:block; font-size:12.5px; font-weight:600; color:#C5D0E0; margin-bottom:7px;">Nama lengkap</label>
+            <input type="text" required value="{{ form.nama }}" onInput="{{ onNama }}" placeholder="Nama kamu" style="width:100%; padding:12px 14px; margin-bottom:16px; background:#FFFFFF; border:1px solid rgba(255,255,255,0.14); border-radius:10px; font-size:14px; color:#16315B;">
+
+            <label style="display:block; font-size:12.5px; font-weight:600; color:#C5D0E0; margin-bottom:7px;">NIM</label>
+            <input type="text" required value="{{ form.nim }}" onInput="{{ onNim }}" placeholder="Contoh: 2207101010001" style="width:100%; padding:12px 14px; margin-bottom:16px; background:#FFFFFF; border:1px solid rgba(255,255,255,0.14); border-radius:10px; font-size:14px; color:#16315B;">
+
+            <label style="display:block; font-size:12.5px; font-weight:600; color:#C5D0E0; margin-bottom:7px;">Angkatan</label>
+            <select required value="{{ form.angkatan }}" onChange="{{ onAngkatan }}" style="width:100%; padding:12px 14px; margin-bottom:16px; background:#FFFFFF; border:1px solid rgba(255,255,255,0.14); border-radius:10px; font-size:14px; color:#16315B;">
+              <option value="">Pilih angkatan</option>
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="lain">Lainnya</option>
+            </select>
+
+            <label style="display:block; font-size:12.5px; font-weight:600; color:#C5D0E0; margin-bottom:7px;">Kontak (WhatsApp)</label>
+            <input type="text" required value="{{ form.kontak }}" onInput="{{ onKontak }}" placeholder="08xx xxxx xxxx" style="width:100%; padding:12px 14px; margin-bottom:22px; background:#FFFFFF; border:1px solid rgba(255,255,255,0.14); border-radius:10px; font-size:14px; color:#16315B;">
+
+            <button type="submit" style="width:100%; padding:14px; background:#C5A24D; color:#1A1407; font-size:15px; font-weight:700; border:none; border-radius:11px; cursor:pointer;">Kirim pendaftaran</button>
+            <p style="font-size:12px; color:#8595AD; margin:14px 0 0; text-align:center;">Data hanya digunakan untuk keperluan kegiatan An-Nahl.</p>
+          </form>
+          </sc-if>
+
+          <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#FFFFFF; border:1px solid #D6E6E1; border-radius:18px; padding:30px 26px; text-align:center;">
+            <div style="width:56px; height:56px; border-radius:50%; background:#E8F1EF; display:flex; align-items:center; justify-content:center; margin:0 auto 18px;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2F7E72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <h3 style="font-family:'Lora',serif; font-weight:600; font-size:21px; color:#16315B; margin:0 0 10px;">Pendaftaran terkirim</h3>
+            <p style="font-size:14.5px; line-height:1.6; color:#5B6573; margin:0 0 20px;">Terima kasih, <strong style="color:#16315B;">{{ form.nama }}</strong>. Tempatmu sudah kami catat — info lanjutan akan dikirim via WhatsApp.</p>
+            <button onClick="{{ resetForm }}" style="padding:11px 20px; background:#F5F7FA; color:#16315B; font-size:14px; font-weight:600; border:1px solid #D8DDE6; border-radius:10px; cursor:pointer;">Daftar lagi</button>
+          </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="background:#10243F; color:#B9C2D4;">
+    <div style="max-width:1120px; margin:0 auto; padding:44px 20px 28px; display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/logo-annahl.jpg" alt="LDF An-Nahl" style="width:42px; height:42px; border-radius:50%; object-fit:cover; background:#fff; padding:1px;">
+        <span style="display:flex; flex-direction:column; line-height:1.15;">
+          <span style="font-family:'Lora',serif; font-weight:600; font-size:16px; color:#FFFFFF;">LDF An-Nahl FKH USK</span>
+          <span style="font-size:12px; color:#7E8AA0;">Merawat hewan, menjaga iman.</span>
+        </span>
+      </div>
+      <span style="font-size:13px; color:#7E8AA0;">© 2026 LDF An-Nahl FKH USK.</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { view: 'list', selectedId: 1, form: { nama:'', nim:'', angkatan:'', kontak:'' }, submitted: false };
+
+  types() {
+    return {
+      kajian:   { label: 'Kajian Rutin', c: '#2F7E72', wash: '#E8F1EF' },
+      workshop: { label: 'Workshop',     c: '#C5A24D', wash: '#F6EFDD' },
+      mabit:    { label: 'Mabit',        c: '#16315B', wash: '#EAEEF5' },
+      baksos:   { label: 'Bakti Sosial', c: '#2F7E72', wash: '#E8F1EF' },
+    };
+  }
+
+  data() {
+    return [
+      { id:1, type:'kajian',   past:false, month:'Jun', day:'27', weekday:'Jum\u2019at', fullDate:'Jum\u2019at, 27 Juni 2026', time:'16.00 WIB', location:'Mushalla FKH USK', quota:60, filled:23, title:'Kajian An-Nahl: Adab Merawat Makhluk Hidup', desc:'Kajian rutin pekanan membahas adab dan tuntunan Islam dalam memperlakukan hewan, dikaitkan dengan praktik kedokteran hewan sehari-hari.' },
+      { id:2, type:'workshop', past:false, month:'Jul', day:'05', weekday:'Sabtu', fullDate:'Sabtu, 5 Juli 2026', time:'08.30 WIB', location:'Aula FKH USK', quota:40, filled:31, title:'Bedah Fikih: Penyembelihan Halal & Praktiknya', desc:'Workshop setengah hari mengupas syarat sah penyembelihan, tadzkiyah, serta simulasi praktik yang sesuai tuntunan syariat.' },
+      { id:3, type:'mabit',    past:false, month:'Jul', day:'19', weekday:'Sabtu', fullDate:'Sabtu, 19 Juli 2026', time:'16.00 WIB', location:'Asrama Mahasiswa USK', quota:50, filled:12, title:'Mabit & Muhasabah Akhir Semester', desc:'Malam bina iman dan takwa untuk menutup semester: kajian, qiyamul lail, dan muhasabah bersama keluarga An-Nahl.' },
+      { id:4, type:'kajian',   past:true,  month:'Mei', day:'24', weekday:'Sabtu', fullDate:'Sabtu, 24 Mei 2026', time:'16.00 WIB', location:'Mushalla FKH USK', quota:60, filled:54, title:'Kajian An-Nahl: Ikhlas dalam Belajar', desc:'Kajian tentang meluruskan niat dalam menuntut ilmu, agar setiap lembar catatan kuliah bernilai ibadah.' },
+      { id:5, type:'baksos',   past:true,  month:'Mei', day:'10', weekday:'Sabtu', fullDate:'Sabtu, 10 Mei 2026', time:'08.00 WIB', location:'Desa Binaan, Aceh Besar', quota:80, filled:80, title:'Bakti Sosial & Pengobatan Hewan Gratis', desc:'Pengabdian masyarakat: pemeriksaan dan pengobatan hewan ternak gratis sekaligus syiar di desa binaan.' },
+    ];
+  }
+
+  badge(type) {
+    const k = this.types()[type];
+    return 'display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:'+k.c+'; background:'+k.wash+'; padding:4px 11px; border-radius:999px;';
+  }
+
+  decorate(e) {
+    const k = this.types()[e.type];
+    const pct = Math.round((e.filled / e.quota) * 100);
+    return Object.assign({}, e, {
+      typeLabel: k.label,
+      badgeStyle: this.badge(e.type),
+      isPast: e.past,
+      quotaText: e.filled + ' / ' + e.quota + ' peserta',
+      quotaBarStyle: 'height:100%; width:'+pct+'%; background:'+(pct>=100?'#C2C8D2':k.c)+'; border-radius:999px;',
+      posterStyle: 'position:relative; border-radius:20px; min-height:clamp(220px,34vw,300px); padding:clamp(24px,4vw,40px); display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(150deg,'+k.c+', '+(e.type==='workshop'?'#A8862F':'#0E2545')+'); overflow:hidden;',
+      posterBadgeStyle: 'display:inline-block; align-self:flex-start; font-size:11.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#FFFFFF; background:rgba(255,255,255,0.18); padding:5px 13px; border-radius:999px;',
+      open: () => { this.setState({ view:'detail', selectedId:e.id, submitted:false, form:{ nama:'', nim:'', angkatan:'', kontak:'' } }); window.scrollTo(0,0); },
+    });
+  }
+
+  field(name) {
+    return (ev) => this.setState({ form: Object.assign({}, this.state.form, { [name]: ev.target.value }) });
+  }
+
+  renderVals() {
+    const all = this.data().map(e => this.decorate(e));
+    const sel = this.decorate(this.data().find(e => e.id === this.state.selectedId) || this.data()[0]);
+    return {
+      showList: this.state.view === 'list',
+      showDetail: this.state.view === 'detail',
+      upcoming: all.filter(e => !e.past),
+      past: all.filter(e => e.past),
+      sel,
+      form: this.state.form,
+      onNama: this.field('nama'),
+      onNim: this.field('nim'),
+      onAngkatan: this.field('angkatan'),
+      onKontak: this.field('kontak'),
+      submit: (ev) => { ev.preventDefault(); this.setState({ submitted: true }); },
+      submitted: this.state.submitted,
+      showForm: !this.state.submitted,
+      resetForm: () => this.setState({ submitted:false, form:{ nama:'', nim:'', angkatan:'', kontak:'' } }),
+      goList: () => { this.setState({ view:'list' }); window.scrollTo(0,0); },
+    };
+  }
+}
+</script>
+</body>
+</html>

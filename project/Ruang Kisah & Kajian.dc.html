@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; color: #3A4556; -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; color: inherit; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:#FFFFFF;">
+
+  <!-- ===== HEADER ===== -->
+  <header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); border-bottom:1px solid #E6E9EF;">
+    <div style="max-width:1120px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+      <a href="Beranda.dc.html" style="display:flex; align-items:center; gap:12px; margin-right:auto;">
+        <img src="assets/logo-annahl.jpg" alt="LDF An-Nahl" style="width:44px; height:44px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 1px #E6E9EF;">
+        <span style="display:flex; flex-direction:column; line-height:1.1;">
+          <span style="font-family:'Lora',serif; font-weight:600; font-size:17px; color:#16315B; letter-spacing:-0.01em;">LDF An-Nahl</span>
+          <span style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:#8A93A3; font-weight:500;">FKH USK</span>
+        </span>
+      </a>
+      <nav style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
+        <a href="Beranda.dc.html" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Beranda</a>
+        <a href="Pojok Fikih Veteriner.dc.html" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Fikih Veteriner</a>
+        <a href="#" style="padding:8px 12px; font-size:14px; font-weight:600; color:#16315B; border-radius:8px;">Kisah &amp; Kajian</a>
+        <a href="#" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Agenda</a>
+        <a href="#" style="padding:8px 12px; font-size:14px; font-weight:500; color:#5B6573; border-radius:8px;">Tentang</a>
+      </nav>
+      <a href="#" style="display:inline-flex; align-items:center; gap:8px; padding:10px 18px; background:#C5A24D; color:#1A1407; font-size:14px; font-weight:700; border-radius:10px;">Gabung</a>
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- ============== A. LIST VIEW =============================== -->
+  <!-- ============================================================ -->
+  <sc-if value="{{ showList }}" hint-placeholder-val="{{ true }}">
+  <div style="background:#FBF8F2;">
+
+    <!-- Intro -->
+    <section style="max-width:1120px; margin:0 auto; padding:56px 20px 8px;">
+      <span style="display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#C5A24D; margin-bottom:16px;">Ruang baca An-Nahl</span>
+      <h1 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(32px,5.5vw,48px); line-height:1.1; letter-spacing:-0.015em; color:#16315B; margin:0 0 16px; max-width:680px;">Kisah &amp; Kajian</h1>
+      <p style="font-size:clamp(15px,2.2vw,17px); line-height:1.7; color:#5B6573; margin:0; max-width:620px;">Catatan hati mahasiswa FKH — refleksi di sela praktikum, penelitian, dan ruang jaga — berdampingan dengan kajian Islam yang menemani perjalanan. Tempat berhenti sejenak, lalu melangkah lagi.</p>
+    </section>
+
+    <!-- Filters -->
+    <section style="max-width:1120px; margin:0 auto; padding:28px 20px 0;">
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="3">
+          <button onClick="{{ f.select }}" style="{{ f.style }}">{{ f.label }}</button>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- Featured -->
+    <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
+    <section style="max-width:1120px; margin:0 auto; padding:28px 20px 0;">
+      <a onClick="{{ featured.open }}" style="display:flex; flex-wrap:wrap; background:#FFFFFF; border:1px solid #ECE6D8; border-radius:20px; overflow:hidden; cursor:pointer; box-shadow:0 14px 40px rgba(22,49,91,0.06);">
+        <div style="{{ featured.featuredCoverStyle }}">
+          <span style="font-family:'Amiri',serif; font-size:64px; color:rgba(255,255,255,0.9);">{{ featured.glyph }}</span>
+        </div>
+        <div style="flex:1 1 320px; min-width:280px; padding:clamp(24px,4vw,40px); display:flex; flex-direction:column; justify-content:center;">
+          <div style="display:flex; gap:10px; align-items:center; margin-bottom:16px;">
+            <span style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#C5A24D;">Sorotan</span>
+            <span style="{{ featured.badgeStyle }}">{{ featured.categoryLabel }}</span>
+          </div>
+          <h2 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(24px,3.4vw,32px); line-height:1.2; letter-spacing:-0.01em; color:#16315B; margin:0 0 14px;">{{ featured.title }}</h2>
+          <p style="font-size:16px; line-height:1.65; color:#5B6573; margin:0 0 22px;">{{ featured.summary }}</p>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:38px; height:38px; border-radius:50%; background:#16315B; color:#FFFFFF; display:flex; align-items:center; justify-content:center; font-family:'Lora',serif; font-weight:600; font-size:15px;">{{ featured.authorInitial }}</div>
+            <div style="display:flex; flex-direction:column; line-height:1.3;">
+              <span style="font-size:14px; font-weight:600; color:#16315B;">{{ featured.author }}</span>
+              <span style="font-size:13px; color:#8A93A3;">{{ featured.date }} · {{ featured.readTime }}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </section>
+    </sc-if>
+
+    <!-- Grid -->
+    <section style="max-width:1120px; margin:0 auto; padding:32px 20px 80px;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:22px;">
+        <sc-for list="{{ articles }}" as="a" hint-placeholder-count="6">
+          <a onClick="{{ a.open }}" style="display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #ECE6D8; border-radius:16px; overflow:hidden; cursor:pointer;">
+            <div style="{{ a.coverStyle }}">
+              <span style="font-family:'Amiri',serif; font-size:32px; color:rgba(255,255,255,0.85);">{{ a.glyph }}</span>
+            </div>
+            <div style="padding:22px; display:flex; flex-direction:column; flex:1;">
+              <span style="{{ a.badgeStyle }}">{{ a.categoryLabel }}</span>
+              <h3 style="font-family:'Lora',serif; font-weight:600; font-size:19px; line-height:1.3; color:#16315B; margin:13px 0 9px;">{{ a.title }}</h3>
+              <p style="font-size:14.5px; line-height:1.6; color:#5B6573; margin:0 0 18px;">{{ a.summary }}</p>
+              <div style="margin-top:auto; display:flex; align-items:center; gap:9px; font-size:13px; color:#8A93A3;">
+                <span style="font-weight:600; color:#677488;">{{ a.author }}</span>
+                <span>·</span>
+                <span>{{ a.readTime }}</span>
+              </div>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ============================================================ -->
+  <!-- ============== B. DETAIL VIEW ============================= -->
+  <!-- ============================================================ -->
+  <sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <article style="max-width:720px; margin:0 auto; padding:32px 20px 8px;">
+      <a onClick="{{ goList }}" style="display:inline-flex; align-items:center; gap:7px; font-size:14px; font-weight:600; color:#677488; margin-bottom:28px; cursor:pointer;">← Kembali ke Kisah &amp; Kajian</a>
+      <span style="{{ sel.badgeStyle }}">{{ sel.categoryLabel }}</span>
+      <h1 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(28px,5vw,44px); line-height:1.15; letter-spacing:-0.015em; color:#16315B; margin:18px 0 22px;">{{ sel.title }}</h1>
+      <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding-bottom:28px; border-bottom:1px solid #E6E9EF;">
+        <div style="width:44px; height:44px; border-radius:50%; background:#16315B; color:#FFFFFF; display:flex; align-items:center; justify-content:center; font-family:'Lora',serif; font-weight:600; font-size:17px;">{{ sel.authorInitial }}</div>
+        <div style="display:flex; flex-direction:column; line-height:1.35;">
+          <span style="font-size:15px; font-weight:600; color:#16315B;">{{ sel.author }}</span>
+          <span style="font-size:13px; color:#8A93A3;">{{ sel.date }} · {{ sel.categoryLabel }} · {{ sel.readTime }}</span>
+        </div>
+      </div>
+    </article>
+
+    <div style="max-width:880px; margin:28px auto 0; padding:0 20px;">
+      <div style="{{ sel.heroStyle }}">
+        <span style="font-family:'Amiri',serif; font-size:clamp(40px,8vw,72px); color:rgba(255,255,255,0.9);">{{ sel.glyph }}</span>
+      </div>
+    </div>
+
+    <!-- Reading column -->
+    <article style="max-width:680px; margin:0 auto; padding:40px 20px 24px; font-size:19px; line-height:1.85; color:#3A4556; letter-spacing:0.002em;">
+      <p style="margin:0 0 26px; font-family:'Lora',serif; font-size:21px; line-height:1.7; font-weight:500; color:#16315B;">{{ sel.summary }}</p>
+
+      <p style="margin:0 0 26px;">Pukul tiga dini hari, lampu ruang jaga klinik hewan masih menyala. Di kandang pojok, seekor kucing pasca-operasi belum juga tenang. Aku duduk di bangku kayu yang dingin, lelah menggantung di pelupuk mata, sambil menimbang: berapa lama lagi hingga Subuh?</p>
+
+      <p style="margin:0 0 26px;">Ada momen-momen kecil dalam kuliah kedokteran hewan yang tidak pernah masuk silabus. Ia datang diam-diam — di sela laporan praktikum yang menumpuk, di tengah bau formalin laboratorium, atau saat tangan gemetar pertama kali memegang makhluk yang kesakitan. Di situlah, anehnya, hati justru paling sering bicara tentang Tuhan.</p>
+
+      <figure style="margin:34px 0; padding:8px 0 8px 26px; border-left:3px solid #C5A24D;">
+        <p style="font-family:'Lora',serif; font-style:italic; font-weight:500; font-size:23px; line-height:1.5; color:#16315B; margin:0;">"Merawat yang lemah ternyata mengajariku arti sabar lebih dalam daripada buku mana pun."</p>
+      </figure>
+
+      <p style="margin:0 0 26px;">Aku teringat sebuah nasihat: bahwa setiap kebaikan kepada makhluk bernyawa dicatat sebagai sedekah. Maka malam-malam panjang ini, dengan segala letihnya, barangkali bukan sekadar tugas akademik. Ia bisa jadi ladang — bila niatnya kujaga.</p>
+
+      <h2 style="font-family:'Lora',serif; font-weight:600; font-size:27px; color:#16315B; margin:42px 0 16px; letter-spacing:-0.01em;">Belajar berhenti sejenak</h2>
+      <p style="margin:0 0 26px;">Adzan Subuh akhirnya berkumandang dari mushalla fakultas. Aku menitipkan kucing itu pada teman jaga, lalu berwudhu dengan air dingin yang menyadarkan. Dalam sujud yang singkat itu, lelah seperti dilipat dan disimpan — diganti sesuatu yang lebih ringan, yang sulit kunamai selain: cukup.</p>
+
+      <p style="margin:0 0 26px;">Mungkin inilah yang ingin diajarkan oleh perjalanan di FKH — bahwa merawat hewan dan menjaga iman bukan dua jalan yang berpisah, melainkan satu jalan yang sama, ditempuh pelan-pelan, satu malam jaga demi satu malam jaga.</p>
+
+      <div style="margin-top:36px; padding-top:24px; border-top:1px solid #E6E9EF; font-size:14px; color:#8A93A3; font-style:italic;">Catatan: Kisah ini adalah contoh ilustratif untuk keperluan desain. Ganti dengan tulisan asli anggota An-Nahl sebelum dipublikasikan.</div>
+    </article>
+
+    <!-- Related -->
+    <section style="background:#FBF8F2; margin-top:24px;">
+      <div style="max-width:1120px; margin:0 auto; padding:56px 20px 72px;">
+        <h2 style="font-family:'Lora',serif; font-weight:700; font-size:clamp(22px,3.5vw,30px); color:#16315B; margin:0 0 28px; letter-spacing:-0.01em;">Bacaan lain</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px;">
+          <sc-for list="{{ related }}" as="a" hint-placeholder-count="3">
+            <a onClick="{{ a.open }}" style="display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #ECE6D8; border-radius:16px; overflow:hidden; cursor:pointer;">
+              <div style="{{ a.coverStyle }}"><span style="font-family:'Amiri',serif; font-size:26px; color:rgba(255,255,255,0.85);">{{ a.glyph }}</span></div>
+              <div style="padding:20px;">
+                <span style="{{ a.badgeStyle }}">{{ a.categoryLabel }}</span>
+                <h3 style="font-family:'Lora',serif; font-weight:600; font-size:17.5px; line-height:1.3; color:#16315B; margin:12px 0 6px;">{{ a.title }}</h3>
+                <span style="font-size:13px; color:#8A93A3;">{{ a.author }} · {{ a.readTime }}</span>
+              </div>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="background:#10243F; color:#B9C2D4;">
+    <div style="max-width:1120px; margin:0 auto; padding:44px 20px 28px; display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/logo-annahl.jpg" alt="LDF An-Nahl" style="width:42px; height:42px; border-radius:50%; object-fit:cover; background:#fff; padding:1px;">
+        <span style="display:flex; flex-direction:column; line-height:1.15;">
+          <span style="font-family:'Lora',serif; font-weight:600; font-size:16px; color:#FFFFFF;">LDF An-Nahl FKH USK</span>
+          <span style="font-size:12px; color:#7E8AA0;">Merawat hewan, menjaga iman.</span>
+        </span>
+      </div>
+      <span style="font-size:13px; color:#7E8AA0;">© 2026 LDF An-Nahl FKH USK.</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { view: 'list', filter: 'all', selectedId: 0 };
+
+  cats() {
+    return {
+      kisah:  { label: 'Kisah & Refleksi', c: '#C5A24D', wash: '#F6EFDD' },
+      kajian: { label: 'Kajian',           c: '#16315B', wash: '#EAEEF5' },
+    };
+  }
+
+  data() {
+    return [
+      { id:0, cat:'kisah', glyph:'\u0635', title:'Sujud di sela jadwal jaga: catatan seorang koass', summary:'Tentang malam-malam panjang di ruang klinik, dan bagaimana lelah berubah menjadi syukur ketika Subuh tiba.', readTime:'7 mnt baca', author:'Nadia A., \u201922', date:'14 Jun 2026' },
+      { id:1, cat:'kisah', glyph:'\u0642', title:'Hari pertama memegang makhluk yang sekarat', summary:'Tangan yang gemetar mengajarkan satu hal yang tak ada di buku teks: arti amanah.', readTime:'5 mnt baca', author:'Rizki F., \u201921', date:'9 Jun 2026' },
+      { id:2, cat:'kajian', glyph:'\u0635', title:'Sabar sebagai bekal seorang penuntut ilmu', summary:'Menelusuri makna sabar dalam menuntut ilmu, dari ulama salaf hingga ruang kuliah hari ini.', readTime:'6 mnt baca', author:'Tim Kajian An-Nahl', date:'5 Jun 2026' },
+      { id:3, cat:'kisah', glyph:'\u0645', title:'Antara laporan praktikum dan panggilan Maghrib', summary:'Kisah memilih: menyelesaikan deadline, atau menjawab adzan yang berkumandang.', readTime:'4 mnt baca', author:'Salsabila, \u201923', date:'30 Mei 2026' },
+      { id:4, cat:'kajian', glyph:'\u0646', title:'Meluruskan niat dalam menuntut ilmu dunia', summary:'Bisakah belajar anatomi dan farmakologi menjadi ibadah? Sebuah tinjauan ringkas.', readTime:'6 mnt baca', author:'Tim Kajian An-Nahl', date:'24 Mei 2026' },
+      { id:5, cat:'kisah', glyph:'\u062A', title:'Ketika penelitian gagal, dan tawakal diuji', summary:'Data yang tak sesuai hipotesis, dan pelajaran tentang berserah setelah berusaha.', readTime:'5 mnt baca', author:'Hafizh M., \u201920', date:'18 Mei 2026' },
+      { id:6, cat:'kajian', glyph:'\u0639', title:'Adab murid kepada guru dalam tradisi Islam', summary:'Warisan adab yang membuat ilmu menjadi berkah, bukan sekadar informasi.', readTime:'7 mnt baca', author:'Tim Kajian An-Nahl', date:'11 Mei 2026' },
+    ];
+  }
+
+  cover(c, h) {
+    return 'height:'+h+'px; background:linear-gradient(135deg,'+c+', '+this.darken(c)+'); display:flex; align-items:center; justify-content:center; flex:none;';
+  }
+  darken(c) {
+    const m = { '#C5A24D':'#A8862F', '#16315B':'#0E2545' };
+    return m[c] || c;
+  }
+  badge(cat) {
+    const k = this.cats()[cat];
+    return 'display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:'+k.c+'; background:'+k.wash+'; padding:4px 11px; border-radius:999px;';
+  }
+
+  decorate(a) {
+    const k = this.cats()[a.cat];
+    return Object.assign({}, a, {
+      categoryLabel: k.label,
+      coverStyle: this.cover(k.c, 156),
+      featuredCoverStyle: 'flex:1 1 300px; min-width:260px; min-height:240px; background:linear-gradient(135deg,'+k.c+', '+this.darken(k.c)+'); display:flex; align-items:center; justify-content:center;',
+      heroStyle: 'border-radius:16px; height:clamp(220px,42vw,360px); background:linear-gradient(135deg,'+k.c+', '+this.darken(k.c)+'); display:flex; align-items:center; justify-content:center;',
+      badgeStyle: this.badge(a.cat),
+      authorInitial: a.author.charAt(0),
+      open: () => { this.setState({ view: 'detail', selectedId: a.id }); window.scrollTo(0,0); },
+    });
+  }
+
+  renderVals() {
+    const cats = this.cats();
+    const all = this.data().map(a => this.decorate(a));
+    const featuredId = 0;
+
+    const filtered = this.state.filter === 'all' ? all : all.filter(a => a.cat === this.state.filter);
+    const showFeatured = this.state.filter === 'all' || this.state.filter === 'kisah';
+    const grid = filtered.filter(a => !(showFeatured && a.id === featuredId));
+
+    const filterDefs = [
+      { key:'all', label:'Semua' },
+      { key:'kisah', label:'Kisah & Refleksi' },
+      { key:'kajian', label:'Kajian' },
+    ];
+    const filters = filterDefs.map(f => {
+      const active = this.state.filter === f.key;
+      const base = 'font-family:inherit; cursor:pointer; font-size:13.5px; font-weight:600; padding:9px 16px; border-radius:999px; transition:all .15s; ';
+      const style = active
+        ? base + 'background:#16315B; color:#FFFFFF; border:1px solid #16315B;'
+        : base + 'background:#FFFFFF; color:#5B6573; border:1px solid #E3DCCB;';
+      return { key:f.key, label:f.label, style, select: () => this.setState({ filter: f.key }) };
+    });
+
+    const sel = this.decorate(this.data().find(a => a.id === this.state.selectedId) || this.data()[0]);
+    const related = all.filter(a => a.id !== this.state.selectedId).slice(0, 3);
+
+    return {
+      showList: this.state.view === 'list',
+      showDetail: this.state.view === 'detail',
+      filters,
+      showFeatured,
+      featured: this.decorate(this.data()[featuredId]),
+      articles: grid,
+      sel,
+      related,
+      goList: () => { this.setState({ view: 'list' }); window.scrollTo(0,0); },
+    };
+  }
+}
+</script>
+</body>
+</html>
