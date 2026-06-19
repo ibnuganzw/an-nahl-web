@@ -2,67 +2,24 @@
 
 import {
   createContext,
+  useCallback,
   useContext,
+  useEffect,
   useState,
   type ReactNode,
 } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
+import type {
+  ArticleRow,
+  EventRow,
+  MemberApplicationRow,
+  EventRegistrationRow,
+} from "@/lib/supabase/types";
 
 export type FikihCat = "kesejahteraan" | "najis" | "penyembelihan" | "lainnya";
 export type KisahCat = "kisah" | "kajian";
 export type EventType = "kajian" | "workshop" | "mabit" | "baksos";
-
-export type FikihArticle = {
-  id: number;
-  cat: FikihCat;
-  title: string;
-  summary: string;
-  author: string;
-  readTime: string;
-  date: string;
-};
-
-export type KisahArticle = {
-  id: number;
-  cat: KisahCat;
-  title: string;
-  summary: string;
-  author: string;
-  readTime: string;
-  date: string;
-};
-
-export type AgendaEvent = {
-  id: number;
-  type: EventType;
-  title: string;
-  fullDate: string;
-  time: string;
-  location: string;
-  quota: number;
-  filled: number;
-  past: boolean;
-  desc: string;
-};
-
-export type MemberApplication = {
-  id: number;
-  nama: string;
-  nim: string;
-  angkatan: string;
-  kontak: string;
-  motivasi: string;
-  date: string;
-};
-
-export type Participant = {
-  id: number;
-  nama: string;
-  nim: string;
-  angkatan: string;
-  kontak: string;
-  event: string;
-  date: string;
-};
 
 export const FIKIH_CATS: Record<FikihCat, string> = {
   kesejahteraan: "Kesejahteraan Hewan",
@@ -70,12 +27,10 @@ export const FIKIH_CATS: Record<FikihCat, string> = {
   penyembelihan: "Penyembelihan Halal",
   lainnya: "Lainnya",
 };
-
 export const KISAH_CATS: Record<KisahCat, string> = {
   kisah: "Kisah & Refleksi",
   kajian: "Kajian",
 };
-
 export const EVENT_TYPES: Record<EventType, string> = {
   kajian: "Kajian Rutin",
   workshop: "Workshop",
@@ -83,104 +38,262 @@ export const EVENT_TYPES: Record<EventType, string> = {
   baksos: "Bakti Sosial",
 };
 
-const SEED_FIKIH: FikihArticle[] = [
-  { id: 1, cat: "kesejahteraan", title: "Kesejahteraan hewan dalam Islam: antara rahmah dan amanah", summary: "Bagaimana prinsip kasih sayang terhadap makhluk hidup menjadi kompas bagi calon dokter hewan.", author: "Tim Fikih An-Nahl", readTime: "6 mnt baca", date: "12 Jun 2026" },
-  { id: 2, cat: "najis", title: "Mengenal batas najis mughallazhah dalam penanganan satwa", summary: "Panduan thaharah praktis ketika berhadapan dengan najis berat di ruang klinik.", author: "Tim Fikih An-Nahl", readTime: "5 mnt baca", date: "8 Jun 2026" },
-  { id: 3, cat: "penyembelihan", title: "Syarat sah penyembelihan halal & etika tadzkiyah", summary: "Rukun, syarat, dan adab menyembelih yang sering terlewat dalam praktik.", author: "Tim Fikih An-Nahl", readTime: "7 mnt baca", date: "2 Jun 2026" },
-  { id: 4, cat: "najis", title: "Hukum kontak dengan air liur hewan saat pemeriksaan", summary: "Tinjauan fikih atas kontak medis dan cara menyucikannya menurut mazhab.", author: "Tim Fikih An-Nahl", readTime: "4 mnt baca", date: "28 Mei 2026" },
-];
+export const isFikihCat = (k: string): k is FikihCat => k in FIKIH_CATS;
+export const isKisahCat = (k: string): k is KisahCat => k in KISAH_CATS;
 
-const SEED_KISAH: KisahArticle[] = [
-  { id: 1, cat: "kisah", title: "Sujud di sela jadwal jaga: catatan seorang koass", summary: "Tentang malam-malam panjang di ruang klinik, dan bagaimana lelah berubah menjadi syukur ketika Subuh tiba.", author: "Nadia A., ’22", readTime: "7 mnt baca", date: "14 Jun 2026" },
-  { id: 2, cat: "kisah", title: "Hari pertama memegang makhluk yang sekarat", summary: "Tangan yang gemetar mengajarkan satu hal yang tak ada di buku teks: arti amanah.", author: "Rizki F., ’21", readTime: "5 mnt baca", date: "9 Jun 2026" },
-  { id: 3, cat: "kajian", title: "Sabar sebagai bekal seorang penuntut ilmu", summary: "Menelusuri makna sabar dalam menuntut ilmu, dari ulama salaf hingga ruang kuliah hari ini.", author: "Tim Kajian An-Nahl", readTime: "6 mnt baca", date: "5 Jun 2026" },
-];
+export type Article = {
+  id: string;
+  judul: string;
+  slug: string;
+  kategori: string;
+  konten: string;
+  penulis: string;
+  status: "draft" | "published";
+  tanggal_publikasi: string | null;
+};
 
-const SEED_AGENDA: AgendaEvent[] = [
-  { id: 1, type: "kajian", title: "Kajian An-Nahl: Adab Merawat Makhluk Hidup", fullDate: "Jum’at, 27 Juni 2026", time: "16.00 WIB", location: "Mushalla FKH USK", quota: 60, filled: 23, past: false, desc: "Kajian rutin pekanan membahas adab dan tuntunan Islam dalam memperlakukan hewan." },
-  { id: 2, type: "workshop", title: "Bedah Fikih: Penyembelihan Halal & Praktiknya", fullDate: "Sabtu, 5 Juli 2026", time: "08.30 WIB", location: "Aula FKH USK", quota: 40, filled: 31, past: false, desc: "Workshop setengah hari mengupas syarat sah penyembelihan, tadzkiyah, serta simulasi praktik." },
-  { id: 3, type: "mabit", title: "Mabit & Muhasabah Akhir Semester", fullDate: "Sabtu, 19 Juli 2026", time: "16.00 WIB", location: "Asrama Mahasiswa USK", quota: 50, filled: 12, past: false, desc: "Malam bina iman dan takwa untuk menutup semester: kajian, qiyamul lail, dan muhasabah." },
-  { id: 4, type: "baksos", title: "Bakti Sosial & Pengobatan Hewan Gratis", fullDate: "Sabtu, 10 Mei 2026", time: "08.00 WIB", location: "Desa Binaan, Aceh Besar", quota: 80, filled: 80, past: true, desc: "Pengabdian masyarakat: pemeriksaan dan pengobatan hewan ternak gratis sekaligus syiar." },
-];
+export type EventItem = {
+  id: string;
+  judul: string;
+  deskripsi: string;
+  tanggal: string | null;
+  waktu: string;
+  lokasi: string;
+  kuota: number;
+  type: EventType;
+  filled: number;
+};
 
-const SEED_MEMBERS: MemberApplication[] = [
-  { id: 1, nama: "Aulia Rahman", nim: "2207101010012", angkatan: "2022", kontak: "0812 3456 7890", motivasi: "Ingin belajar Islam yang relevan dengan dunia veteriner.", date: "15 Jun 2026" },
-  { id: 2, nama: "Siti Khadijah", nim: "2307101010045", angkatan: "2023", kontak: "0813 2233 4455", motivasi: "Mencari lingkungan yang menjaga semangat ibadah di tengah kuliah.", date: "14 Jun 2026" },
-  { id: 3, nama: "Muhammad Fadhil", nim: "2107101010078", angkatan: "2021", kontak: "0852 9988 7766", motivasi: "Ingin aktif di syiar dan bakti sosial pengobatan hewan.", date: "12 Jun 2026" },
-];
+export type Member = {
+  id: string;
+  nama: string;
+  nim: string;
+  angkatan: string;
+  kontak: string;
+  motivasi: string;
+  tanggal_daftar: string;
+};
 
-const SEED_PARTICIPANTS: Participant[] = [
-  { id: 1, nama: "Nadia Azzahra", nim: "2207101010099", angkatan: "2022", kontak: "0811 2233 4455", event: "Kajian An-Nahl: Adab Merawat Makhluk Hidup", date: "16 Jun 2026" },
-  { id: 2, nama: "Hafizh Maulana", nim: "2007101010003", angkatan: "2020", kontak: "0853 1212 3434", event: "Bedah Fikih: Penyembelihan Halal & Praktiknya", date: "15 Jun 2026" },
-];
+export type Registration = {
+  id: string;
+  event_id: string;
+  nama: string;
+  nim: string;
+  angkatan: string;
+  kontak: string;
+  email: string;
+  created_at: string;
+};
+
+export type ArticleDraft = Omit<Article, "id"> & { id?: string };
+export type EventDraft = Omit<EventItem, "id"> & { id?: string };
 
 type AdminData = {
-  fikih: FikihArticle[];
-  kisah: KisahArticle[];
-  agenda: AgendaEvent[];
-  members: MemberApplication[];
-  participants: Participant[];
-  saveFikih: (item: Omit<FikihArticle, "id" | "date"> & { id?: number }) => void;
-  removeFikih: (id: number) => void;
-  saveKisah: (item: Omit<KisahArticle, "id" | "date"> & { id?: number }) => void;
-  removeKisah: (id: number) => void;
-  saveAgenda: (item: Omit<AgendaEvent, "id"> & { id?: number }) => void;
-  removeAgenda: (id: number) => void;
-  removeMember: (id: number) => void;
-  removeParticipant: (id: number) => void;
+  loading: boolean;
+  error: string | null;
+  articles: Article[];
+  events: EventItem[];
+  members: Member[];
+  registrations: Registration[];
+  refresh: () => Promise<void>;
+  saveArticle: (d: ArticleDraft) => Promise<void>;
+  removeArticle: (id: string) => Promise<void>;
+  saveEvent: (d: EventDraft) => Promise<void>;
+  removeEvent: (id: string) => Promise<void>;
+  removeMember: (id: string) => Promise<void>;
+  removeRegistration: (id: string) => Promise<void>;
+  signOut: () => Promise<void>;
 };
 
 const AdminContext = createContext<AdminData | null>(null);
 
-let counter = 1000;
-const nextId = () => ++counter;
+const mapArticle = (r: ArticleRow): Article => ({
+  id: r.id,
+  judul: r.judul,
+  slug: r.slug,
+  kategori: r.kategori,
+  konten: r.konten ?? "",
+  penulis: r.penulis ?? "",
+  status: r.status,
+  tanggal_publikasi: r.tanggal_publikasi,
+});
 
-const todayLabel = () =>
-  new Date().toLocaleDateString("id-ID", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+const mapEvent = (r: EventRow): EventItem => ({
+  id: r.id,
+  judul: r.judul,
+  deskripsi: r.deskripsi ?? "",
+  tanggal: r.tanggal,
+  waktu: r.waktu ?? "",
+  lokasi: r.lokasi ?? "",
+  kuota: r.kuota ?? 0,
+  type: (r.type as EventType) ?? "kajian",
+  filled: r.filled ?? 0,
+});
+
+const mapMember = (r: MemberApplicationRow): Member => ({
+  id: r.id,
+  nama: r.nama,
+  nim: r.nim,
+  angkatan: r.angkatan,
+  kontak: r.kontak ?? "",
+  motivasi: r.motivasi ?? "",
+  tanggal_daftar: r.tanggal_daftar,
+});
+
+const mapRegistration = (r: EventRegistrationRow): Registration => ({
+  id: r.id,
+  event_id: r.event_id,
+  nama: r.nama,
+  nim: r.nim ?? "",
+  angkatan: r.angkatan ?? "",
+  kontak: r.kontak ?? "",
+  email: r.email ?? "",
+  created_at: r.created_at,
+});
+
+function makeSlug(judul: string) {
+  const base = judul
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+  return `${base || "artikel"}-${Date.now().toString(36).slice(-4)}`;
+}
 
 export function AdminDataProvider({ children }: { children: ReactNode }) {
-  const [fikih, setFikih] = useState(SEED_FIKIH);
-  const [kisah, setKisah] = useState(SEED_KISAH);
-  const [agenda, setAgenda] = useState(SEED_AGENDA);
-  const [members, setMembers] = useState(SEED_MEMBERS);
-  const [participants, setParticipants] = useState(SEED_PARTICIPANTS);
+  const router = useRouter();
+  const [supabase] = useState(() => createClient());
+  const [authed, setAuthed] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [events, setEvents] = useState<EventItem[]>([]);
+  const [members, setMembers] = useState<Member[]>([]);
+  const [registrations, setRegistrations] = useState<Registration[]>([]);
 
-  function upsert<T extends { id: number }>(
-    setList: React.Dispatch<React.SetStateAction<T[]>>,
-    item: Partial<T> & { id?: number }
-  ) {
-    setList((list) => {
-      if (item.id != null) {
-        return list.map((x) =>
-          x.id === item.id ? ({ ...x, ...item } as T) : x
-        );
+  const refresh = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [a, e, m, r] = await Promise.all([
+        supabase.from("articles").select("*").order("tanggal_publikasi", { ascending: false, nullsFirst: false }),
+        supabase.from("events").select("*").order("tanggal", { ascending: true }),
+        supabase.from("member_applications").select("*").order("tanggal_daftar", { ascending: false }),
+        supabase.from("event_registrations").select("*").order("created_at", { ascending: false }),
+      ]);
+      setArticles((a.data ?? []).map((row) => mapArticle(row as ArticleRow)));
+      setEvents((e.data ?? []).map((row) => mapEvent(row as EventRow)));
+      setMembers((m.data ?? []).map((row) => mapMember(row as MemberApplicationRow)));
+      setRegistrations((r.data ?? []).map((row) => mapRegistration(row as EventRegistrationRow)));
+      const firstErr = a.error || e.error || m.error || r.error;
+      if (firstErr) setError(firstErr.message);
+    } catch {
+      setError("Gagal memuat data dari server.");
+    } finally {
+      setLoading(false);
+    }
+  }, [supabase]);
+
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!active) return;
+      if (!session) {
+        router.replace("/admin/login");
+        return;
       }
-      return [
-        { ...item, id: nextId(), date: todayLabel() } as unknown as T,
-        ...list,
-      ];
+      setAuthed(true);
+      refresh();
+    })();
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        setAuthed(false);
+        router.replace("/admin/login");
+      }
     });
+    return () => {
+      active = false;
+      sub.subscription.unsubscribe();
+    };
+  }, [supabase, router, refresh]);
+
+  const saveArticle = async (d: ArticleDraft) => {
+    const payload = {
+      judul: d.judul,
+      slug: d.slug && d.slug.length > 0 ? d.slug : makeSlug(d.judul),
+      kategori: d.kategori,
+      konten: d.konten,
+      penulis: d.penulis,
+      status: d.status,
+      tanggal_publikasi:
+        d.status === "published"
+          ? d.tanggal_publikasi ?? new Date().toISOString()
+          : d.tanggal_publikasi,
+    };
+    const res = d.id
+      ? await supabase.from("articles").update(payload).eq("id", d.id)
+      : await supabase.from("articles").insert(payload);
+    if (res.error) throw new Error(res.error.message);
+    await refresh();
+  };
+
+  const saveEvent = async (d: EventDraft) => {
+    const payload = {
+      judul: d.judul,
+      deskripsi: d.deskripsi,
+      tanggal: d.tanggal && d.tanggal.length > 0 ? d.tanggal : null,
+      waktu: d.waktu,
+      lokasi: d.lokasi,
+      kuota: d.kuota,
+      type: d.type,
+      filled: d.filled,
+    };
+    const res = d.id
+      ? await supabase.from("events").update(payload).eq("id", d.id)
+      : await supabase.from("events").insert(payload);
+    if (res.error) throw new Error(res.error.message);
+    await refresh();
+  };
+
+  const removeRow = async (table: string, id: string) => {
+    const res = await supabase.from(table).delete().eq("id", id);
+    if (res.error) throw new Error(res.error.message);
+    await refresh();
+  };
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    router.replace("/admin/login");
+  };
+
+  if (authed === null) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-bg-soft text-muted">
+        Memeriksa sesi…
+      </div>
+    );
   }
+  if (!authed) return null;
 
   const value: AdminData = {
-    fikih,
-    kisah,
-    agenda,
+    loading,
+    error,
+    articles,
+    events,
     members,
-    participants,
-    saveFikih: (item) => upsert(setFikih, item),
-    removeFikih: (id) => setFikih((l) => l.filter((x) => x.id !== id)),
-    saveKisah: (item) => upsert(setKisah, item),
-    removeKisah: (id) => setKisah((l) => l.filter((x) => x.id !== id)),
-    saveAgenda: (item) => upsert(setAgenda, item),
-    removeAgenda: (id) => setAgenda((l) => l.filter((x) => x.id !== id)),
-    removeMember: (id) => setMembers((l) => l.filter((x) => x.id !== id)),
-    removeParticipant: (id) =>
-      setParticipants((l) => l.filter((x) => x.id !== id)),
+    registrations,
+    refresh,
+    saveArticle,
+    removeArticle: (id) => removeRow("articles", id),
+    saveEvent,
+    removeEvent: (id) => removeRow("events", id),
+    removeMember: (id) => removeRow("member_applications", id),
+    removeRegistration: (id) => removeRow("event_registrations", id),
+    signOut,
   };
 
   return (

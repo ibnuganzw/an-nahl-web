@@ -214,7 +214,7 @@ export default function Beranda() {
 
       {/* CTA STRIP */}
       <section className="bg-white">
-        <div className="mx-auto max-w-[1120px] px-5 pb-16 pt-2">
+        <div className="mx-auto max-w-[1120px] px-5 pb-8 pt-2">
           <div className="relative flex flex-wrap items-center justify-between gap-6 overflow-hidden rounded-[20px] bg-navy p-[clamp(28px,5vw,48px)]">
             <div
               className="absolute inset-0"
