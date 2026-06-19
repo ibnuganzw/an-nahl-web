@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/client";
 
 type FormState = {
   nama: string;
@@ -25,8 +26,11 @@ const labelClass =
   "mb-[7px] block text-[12.5px] font-semibold text-form-label";
 
 export default function GabungForm() {
+  const [supabase] = useState(() => createClient());
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const update =
     (name: keyof FormState) =>
@@ -37,14 +41,37 @@ export default function GabungForm() {
     ) =>
       setForm((prev) => ({ ...prev, [name]: e.target.value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const { error: insertError } = await supabase
+      .from("member_applications")
+      .insert({
+        nama: form.nama,
+        nim: form.nim,
+        angkatan: form.angkatan,
+        kontak: form.kontak,
+        motivasi: form.motivasi,
+      });
+
+    setLoading(false);
+
+    if (insertError) {
+      setError(
+        "Maaf, pendaftaran gagal terkirim. Periksa koneksi lalu coba lagi.",
+      );
+      return;
+    }
+
     setSubmitted(true);
     window.scrollTo(0, 0);
   };
 
   const resetForm = () => {
     setSubmitted(false);
+    setError(null);
     setForm(EMPTY_FORM);
   };
 
@@ -173,11 +200,20 @@ export default function GabungForm() {
           className={`${inputClass} mb-6 resize-y leading-[1.6]`}
         />
 
+        {error && (
+          <p className="mb-3.5 rounded-[10px] bg-[#FBEAE8] px-3.5 py-2.5 text-center text-[13px] font-medium text-[#C0392B]">
+            {error}
+          </p>
+        )}
+
         <button
           type="submit"
-          className="w-full cursor-pointer rounded-xl border-none bg-gold p-[15px] text-[15px] font-bold text-gold-on"
+          disabled={loading}
+          className={`w-full rounded-xl border-none bg-gold p-[15px] text-[15px] font-bold text-gold-on ${
+            loading ? "cursor-not-allowed opacity-70" : "cursor-pointer"
+          }`}
         >
-          Kirim pendaftaran
+          {loading ? "Mengirim…" : "Kirim pendaftaran"}
         </button>
         <p className="mt-3.5 text-center text-xs text-form-footer">
           Data hanya digunakan untuk keperluan kaderisasi An-Nahl.
