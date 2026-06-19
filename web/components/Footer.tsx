@@ -17,8 +17,8 @@ const CONNECT = [
 export default function Footer() {
   return (
     <footer className="bg-navy-dark text-footer-text">
-      <div className="mx-auto max-w-[1120px] px-5 pb-7 pt-13">
-        <div className="mb-9 flex flex-wrap justify-between gap-8">
+      <div className="mx-auto max-w-[1120px] px-5 pb-7 pt-10">
+        <div className="mb-8 flex flex-wrap justify-between gap-8">
           <div className="max-w-[330px]">
             <div className="mb-4 flex items-center gap-3">
               <Image
