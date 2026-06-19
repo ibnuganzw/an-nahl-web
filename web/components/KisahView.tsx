@@ -99,7 +99,15 @@ export default function KisahView() {
           .in("kategori", KISAH_CATS)
           .order("tanggal_publikasi", { ascending: false })
           .abortSignal(AbortSignal.timeout(8000));
-        if (active) setArticles((data ?? []).map((r) => mapArticle(r as ArticleRow)));
+        if (active) {
+          const mapped = (data ?? []).map((r) => mapArticle(r as ArticleRow));
+          setArticles(mapped);
+          const target = new URLSearchParams(window.location.search).get("artikel");
+          if (target && mapped.some((a) => a.id === target)) {
+            setSelectedId(target);
+            setView("detail");
+          }
+        }
       } catch {
         /* biarkan kosong jika gagal */
       } finally {

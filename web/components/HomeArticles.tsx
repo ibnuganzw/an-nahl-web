@@ -66,7 +66,7 @@ export default function HomeArticles() {
         return (
           <Link
             key={a.id}
-            href={meta.href}
+            href={`${meta.href}?artikel=${a.id}`}
             className="flex flex-col overflow-hidden rounded-2xl border border-border bg-white"
           >
             <div
