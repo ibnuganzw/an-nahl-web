@@ -40,6 +40,8 @@ create table if not exists public.events (
   lokasi      text,
   poster_url  text,
   kuota       integer,
+  type        text,
+  filled      integer not null default 0,
   created_at  timestamptz not null default now()
 );
 
@@ -50,6 +52,8 @@ create table if not exists public.event_registrations (
   nama        text not null,
   email       text,
   angkatan    text,
+  nim         text,
+  kontak      text,
   created_at  timestamptz not null default now()
 );
 
