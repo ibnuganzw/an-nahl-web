@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import HomeArticles from "@/components/HomeArticles";
 import HomeEvents from "@/components/HomeEvents";
+import Honeycomb from "@/components/Honeycomb";
 
 const TOPICS = [
   {
@@ -105,11 +106,12 @@ export default function Beranda() {
 
       {/* FEATURED: POJOK FIKIH VETERINER */}
       <section className="relative overflow-hidden bg-navy">
+        <Honeycomb opacity={0.07} />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(800px 360px at 90% 0%, rgba(197,162,77,0.14), transparent 60%), radial-gradient(700px 320px at -5% 100%, rgba(47,126,114,0.18), transparent 55%)",
+              "radial-gradient(700px 340px at 92% -10%, rgba(197,162,77,0.12), transparent 60%)",
           }}
         />
         <div className="relative mx-auto max-w-[1120px] px-5 pb-20 pt-18">
@@ -219,13 +221,7 @@ export default function Beranda() {
       <section className="bg-white">
         <div className="mx-auto max-w-[1120px] px-5 pb-8 pt-2">
           <div className="relative flex flex-wrap items-center justify-between gap-6 overflow-hidden rounded-[20px] bg-navy p-[clamp(28px,5vw,48px)]">
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(500px 220px at 100% 0%, rgba(197,162,77,0.16), transparent 60%)",
-              }}
-            />
+            <Honeycomb opacity={0.08} />
             <div className="relative max-w-[560px]">
               <h2 className="mb-2.5 font-serif text-[clamp(24px,3.6vw,32px)] font-bold tracking-[-0.01em] text-white">
                 Tumbuh bersama keluarga An-Nahl

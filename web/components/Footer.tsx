@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Honeycomb from "@/components/Honeycomb";
 
 const EXPLORE = [
   { href: "/fikih-veteriner", label: "Fikih Veteriner" },
@@ -24,8 +25,9 @@ const CONNECT = [
 
 export default function Footer() {
   return (
-    <footer className="bg-navy-dark text-footer-text">
-      <div className="mx-auto max-w-[1120px] px-5 pb-7 pt-10">
+    <footer className="relative overflow-hidden bg-navy-dark text-footer-text">
+      <Honeycomb opacity={0.05} />
+      <div className="relative mx-auto max-w-[1120px] px-5 pb-7 pt-10">
         <div className="mb-8 flex flex-wrap justify-between gap-8">
           <div className="max-w-[330px]">
             <div className="mb-4 flex items-center gap-3">
