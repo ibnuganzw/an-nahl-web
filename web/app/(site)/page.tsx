@@ -53,7 +53,6 @@ export default function Beranda() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy-dark/90 to-navy-dark/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/5 to-navy-dark/35" />
-        <Honeycomb opacity={0.05} />
 
         <div className="relative mx-auto flex min-h-[clamp(540px,82vh,720px)] max-w-[1120px] flex-col justify-center px-5 py-20">
           <div className="max-w-[640px]">
@@ -99,33 +98,25 @@ export default function Beranda() {
       </section>
 
       {/* FEATURED: POJOK FIKIH VETERINER */}
-      <section className="relative overflow-hidden bg-navy">
-        <Honeycomb opacity={0.07} />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(700px 340px at 92% -10%, rgba(197,162,77,0.12), transparent 60%)",
-          }}
-        />
-        <div className="relative mx-auto max-w-[1120px] px-5 pb-16 pt-14">
+      <section className="bg-bg-soft">
+        <div className="mx-auto max-w-[1120px] px-5 pb-16 pt-14">
           <div className="mb-9 flex flex-wrap items-end justify-between gap-5">
             <div className="max-w-[620px]">
-              <span className="mb-3.5 inline-flex items-center gap-3 text-[11.5px] font-bold uppercase tracking-[0.2em] text-gold">
-                <span className="h-px w-9 flex-none bg-gold" />
+              <span className="mb-3.5 inline-flex items-center gap-3 text-[11.5px] font-bold uppercase tracking-[0.2em] text-teal">
+                <span className="h-px w-9 flex-none bg-teal" />
                 Rubrik Unggulan
               </span>
-              <h2 className="mb-3 font-serif text-[clamp(28px,4.5vw,40px)] font-bold leading-[1.12] tracking-[-0.01em] text-white">
+              <h2 className="mb-3 font-serif text-[clamp(28px,4.5vw,40px)] font-bold leading-[1.12] tracking-[-0.01em] text-navy">
                 Pojok Fikih Veteriner
               </h2>
-              <p className="m-0 text-base leading-[1.65] text-footer-text">
+              <p className="m-0 text-base leading-[1.65] text-muted">
                 Panduan ringkas memadukan ilmu syar&apos;i dengan praktik
                 kedokteran hewan — dari kandang sampai ruang praktik.
               </p>
             </div>
             <Link
               href="/fikih-veteriner"
-              className="inline-flex items-center gap-2 rounded-[10px] border border-white/[0.18] bg-white/[0.06] px-[18px] py-[11px] text-sm font-semibold text-white"
+              className="inline-flex items-center gap-2 rounded-[10px] border border-[#D8DDE6] bg-white px-[18px] py-[11px] text-sm font-semibold text-navy transition-colors hover:border-navy"
             >
               Semua topik →
             </Link>
@@ -136,15 +127,15 @@ export default function Beranda() {
               <Link
                 key={topic.title}
                 href="/fikih-veteriner"
-                className="block rounded-2xl border border-white/[0.10] bg-[#1C3C6B] p-[26px] transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-[#22467d]"
+                className="block rounded-2xl border border-border bg-white p-[26px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,49,91,0.10)]"
               >
-                <div className="mb-5 flex h-[52px] w-[52px] items-center justify-center rounded-[13px] bg-teal/[0.22]">
+                <div className="mb-5 flex h-[52px] w-[52px] items-center justify-center rounded-[13px] bg-teal-bg">
                   <svg
                     width="26"
                     height="26"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="#5DBBA9"
+                    stroke="#2F7E72"
                     strokeWidth="1.6"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -152,13 +143,13 @@ export default function Beranda() {
                     {topic.icon}
                   </svg>
                 </div>
-                <h3 className="mb-2 font-serif text-xl font-semibold text-white">
+                <h3 className="mb-2 font-serif text-xl font-semibold text-navy">
                   {topic.title}
                 </h3>
-                <p className="mb-4 text-[14.5px] leading-[1.6] text-[#A9B4C8]">
+                <p className="mb-4 text-[14.5px] leading-[1.6] text-muted">
                   {topic.desc}
                 </p>
-                <span className="text-[13.5px] font-semibold text-gold">
+                <span className="text-[13.5px] font-semibold text-teal">
                   Pelajari →
                 </span>
               </Link>
