@@ -71,6 +71,8 @@ export default function ArticleEditor() {
   const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState(false);
+  const [importing, setImporting] = useState(false);
+  const [aiBusy, setAiBusy] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -150,6 +152,98 @@ export default function ArticleEditor() {
       return;
     }
     insertAtCursor(`\n\n![Tulis caption gambar di sini](${url})\n\n`);
+  }
+
+  async function uploadBase64(
+    b64: string,
+    contentType: string,
+  ): Promise<string | null> {
+    const blob = await (await fetch(`data:${contentType};base64,${b64}`)).blob();
+    const ext = (contentType.split("/")[1] || "png").replace("+xml", "");
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const { error: upErr } = await supabase.storage
+      .from("artikel")
+      .upload(path, blob, { contentType, cacheControl: "3600" });
+    if (upErr) return null;
+    return supabase.storage.from("artikel").getPublicUrl(path).data.publicUrl;
+  }
+
+  async function handleImportFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0];
+    e.target.value = "";
+    if (!f) return;
+    setImporting(true);
+    setError(null);
+    try {
+      const name = f.name.toLowerCase();
+      let md = "";
+      if (
+        name.endsWith(".md") ||
+        name.endsWith(".markdown") ||
+        name.endsWith(".txt")
+      ) {
+        md = await f.text();
+      } else if (name.endsWith(".docx")) {
+        const arrayBuffer = await f.arrayBuffer();
+        const mammoth = (await import("mammoth")).default;
+        const TurndownService = (await import("turndown")).default;
+        const result = await mammoth.convertToHtml(
+          { arrayBuffer },
+          {
+            convertImage: mammoth.images.imgElement(async (image) => {
+              const b64 = await image.read("base64");
+              const src = await uploadBase64(b64, image.contentType);
+              return { src: src ?? "" };
+            }),
+          },
+        );
+        const td = new TurndownService({
+          headingStyle: "atx",
+          bulletListMarker: "-",
+          codeBlockStyle: "fenced",
+        });
+        md = td.turndown(result.value);
+      } else {
+        setError("Format tidak didukung. Gunakan file .docx atau .md");
+        setImporting(false);
+        return;
+      }
+      md = md.trim();
+      setKonten((k) => (k.trim() ? `${k}\n\n${md}` : md));
+    } catch {
+      setError("Gagal mengimpor file. Pastikan file .docx/.md valid.");
+    } finally {
+      setImporting(false);
+    }
+  }
+
+  async function rapikanAI() {
+    if (!konten.trim() || aiBusy) return;
+    if (
+      !window.confirm(
+        "Rapikan isi dengan AI? Isi saat ini akan diganti hasil rapian. Pakai Pratinjau dulu untuk memeriksa hasilnya.",
+      )
+    )
+      return;
+    setAiBusy(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/format-article", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: konten }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Gagal merapikan dengan AI.");
+        return;
+      }
+      setKonten(data.markdown);
+    } catch {
+      setError("Gagal menghubungi layanan AI.");
+    } finally {
+      setAiBusy(false);
+    }
   }
 
   function insertAtCursor(text: string) {
@@ -347,8 +441,44 @@ export default function ArticleEditor() {
           )}
         </div>
 
-        {/* Toolbar */}
+        {/* Import & AI */}
         <label className={adminLabel}>Isi artikel</label>
+        <div className="mb-2 flex flex-wrap items-center gap-2.5 rounded-[10px] border border-dashed border-border bg-bg-soft px-3 py-2.5">
+          <span className="text-[12.5px] font-semibold text-muted2">
+            Cara cepat:
+          </span>
+          <label
+            className={`flex items-center gap-1.5 rounded-md border border-border bg-white px-3 py-1.5 text-[13px] font-semibold ${
+              importing ? "cursor-wait opacity-70" : "cursor-pointer text-navy hover:border-navy"
+            }`}
+          >
+            {importing ? "Mengimpor…" : "📄 Impor DOCX / Markdown"}
+            <input
+              type="file"
+              accept=".docx,.md,.markdown,.txt"
+              onChange={handleImportFile}
+              disabled={importing}
+              className="hidden"
+            />
+          </label>
+          <button
+            type="button"
+            onClick={rapikanAI}
+            disabled={aiBusy || !konten.trim()}
+            className={`rounded-md border px-3 py-1.5 text-[13px] font-semibold ${
+              aiBusy || !konten.trim()
+                ? "cursor-not-allowed border-border bg-white text-light"
+                : "cursor-pointer border-gold bg-gold-bg text-gold hover:brightness-95"
+            }`}
+          >
+            {aiBusy ? "Merapikan…" : "✨ Rapikan dengan AI"}
+          </button>
+          <span className="text-[12px] text-light">
+            Impor naskah jadi, lalu rapikan strukturnya otomatis.
+          </span>
+        </div>
+
+        {/* Toolbar */}
         <div className="flex flex-wrap items-center gap-1 rounded-t-[10px] border border-b-0 border-border bg-bg-soft px-2 py-1.5">
           <ToolBtn title="Sub-judul besar" onClick={() => insertAtCursor("\n## Sub-judul\n")}>
             H2

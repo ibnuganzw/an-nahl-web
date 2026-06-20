@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type {
   ArticleRow,
+  ArticleSubmissionRow,
   EventRow,
   MemberApplicationRow,
   EventRegistrationRow,
@@ -85,6 +86,15 @@ export type Registration = {
   created_at: string;
 };
 
+export type Submission = {
+  id: string;
+  judul: string;
+  penulis: string;
+  kontak: string;
+  konten: string;
+  created_at: string;
+};
+
 export type ArticleDraft = Omit<Article, "id"> & { id?: string };
 export type EventDraft = Omit<EventItem, "id"> & { id?: string };
 
@@ -95,7 +105,10 @@ type AdminData = {
   events: EventItem[];
   members: Member[];
   registrations: Registration[];
+  submissions: Submission[];
   refresh: () => Promise<void>;
+  approveSubmission: (id: string) => Promise<void>;
+  removeSubmission: (id: string) => Promise<void>;
   saveArticle: (d: ArticleDraft) => Promise<void>;
   removeArticle: (id: string) => Promise<void>;
   saveEvent: (d: EventDraft) => Promise<void>;
@@ -151,6 +164,15 @@ const mapRegistration = (r: EventRegistrationRow): Registration => ({
   created_at: r.created_at,
 });
 
+const mapSubmission = (r: ArticleSubmissionRow): Submission => ({
+  id: r.id,
+  judul: r.judul,
+  penulis: r.penulis ?? "",
+  kontak: r.kontak ?? "",
+  konten: r.konten ?? "",
+  created_at: r.created_at,
+});
+
 function makeSlug(judul: string) {
   const base = judul
     .toLowerCase()
@@ -170,22 +192,25 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
   const [events, setEvents] = useState<EventItem[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [registrations, setRegistrations] = useState<Registration[]>([]);
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
 
   const refresh = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const [a, e, m, r] = await Promise.all([
+      const [a, e, m, r, s] = await Promise.all([
         supabase.from("articles").select("*").order("tanggal_publikasi", { ascending: false, nullsFirst: false }),
         supabase.from("events").select("*").order("tanggal", { ascending: true }),
         supabase.from("member_applications").select("*").order("tanggal_daftar", { ascending: false }),
         supabase.from("event_registrations").select("*").order("created_at", { ascending: false }),
+        supabase.from("article_submissions").select("*").order("created_at", { ascending: false }),
       ]);
       setArticles((a.data ?? []).map((row) => mapArticle(row as ArticleRow)));
       setEvents((e.data ?? []).map((row) => mapEvent(row as EventRow)));
       setMembers((m.data ?? []).map((row) => mapMember(row as MemberApplicationRow)));
       setRegistrations((r.data ?? []).map((row) => mapRegistration(row as EventRegistrationRow)));
-      const firstErr = a.error || e.error || m.error || r.error;
+      setSubmissions((s.data ?? []).map((row) => mapSubmission(row as ArticleSubmissionRow)));
+      const firstErr = a.error || e.error || m.error || r.error || s.error;
       if (firstErr) setError(firstErr.message);
     } catch {
       setError("Gagal memuat data dari server.");
@@ -209,9 +234,8 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
       refresh();
     })();
 
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        setAuthed(false);
+    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") {
         router.replace("/admin/login");
       }
     });
@@ -261,7 +285,30 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
 
   const removeRow = async (table: string, id: string) => {
     const res = await supabase.from(table).delete().eq("id", id);
-    if (res.error) throw new Error(res.error.message);
+    if (res.error) {
+      setError(res.error.message);
+      return;
+    }
+    await refresh();
+  };
+
+  const approveSubmission = async (id: string) => {
+    const sub = submissions.find((x) => x.id === id);
+    if (!sub) return;
+    const ins = await supabase.from("articles").insert({
+      judul: sub.judul,
+      slug: makeSlug(sub.judul),
+      kategori: "kisah",
+      konten: sub.konten,
+      penulis: sub.penulis,
+      status: "draft",
+      tanggal_publikasi: null,
+    });
+    if (ins.error) {
+      setError(ins.error.message);
+      return;
+    }
+    await supabase.from("article_submissions").delete().eq("id", id);
     await refresh();
   };
 
@@ -286,7 +333,10 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
     events,
     members,
     registrations,
+    submissions,
     refresh,
+    approveSubmission,
+    removeSubmission: (id) => removeRow("article_submissions", id),
     saveArticle,
     removeArticle: (id) => removeRow("articles", id),
     saveEvent,
