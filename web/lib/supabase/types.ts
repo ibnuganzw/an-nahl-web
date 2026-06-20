@@ -37,6 +37,16 @@ export type MemberApplicationRow = {
   tanggal_daftar: string;
 };
 
+export type ArticleSubmissionRow = {
+  id: string;
+  judul: string;
+  penulis: string | null;
+  kontak: string | null;
+  konten: string;
+  status: "pending" | "approved";
+  created_at: string;
+};
+
 export type EventRegistrationRow = {
   id: string;
   event_id: string;
