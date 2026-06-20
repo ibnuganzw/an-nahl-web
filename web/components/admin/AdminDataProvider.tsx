@@ -209,9 +209,8 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
       refresh();
     })();
 
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        setAuthed(false);
+    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") {
         router.replace("/admin/login");
       }
     });
@@ -261,7 +260,10 @@ export function AdminDataProvider({ children }: { children: ReactNode }) {
 
   const removeRow = async (table: string, id: string) => {
     const res = await supabase.from(table).delete().eq("id", id);
-    if (res.error) throw new Error(res.error.message);
+    if (res.error) {
+      setError(res.error.message);
+      return;
+    }
     await refresh();
   };
 
