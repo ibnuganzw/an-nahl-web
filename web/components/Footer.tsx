@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Honeycomb from "@/components/Honeycomb";
 
 const EXPLORE = [
   { href: "/fikih-veteriner", label: "Fikih Veteriner" },
@@ -9,15 +10,24 @@ const EXPLORE = [
 ];
 
 const CONNECT = [
-  { href: "#", label: "Instagram" },
-  { href: "/gabung", label: "Gabung jadi anggota" },
-  { href: "#", label: "Kontak pengurus" },
+  {
+    href: "https://www.instagram.com/ldfannahl.fkhusk/",
+    label: "Instagram",
+    external: true,
+  },
+  { href: "/gabung", label: "Gabung jadi anggota", external: false },
+  {
+    href: "https://wa.me/6285271484106",
+    label: "Kontak pengurus",
+    external: true,
+  },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-navy-dark text-footer-text">
-      <div className="mx-auto max-w-[1120px] px-5 pb-7 pt-10">
+    <footer className="relative overflow-hidden bg-navy-dark text-footer-text">
+      <Honeycomb opacity={0.05} />
+      <div className="relative mx-auto max-w-[1120px] px-5 pb-7 pt-10">
         <div className="mb-8 flex flex-wrap justify-between gap-8">
           <div className="max-w-[330px]">
             <div className="mb-4 flex items-center gap-3">
@@ -49,7 +59,11 @@ export default function Footer() {
               </h4>
               <div className="flex flex-col gap-[11px] text-sm">
                 {EXPLORE.map((item) => (
-                  <Link key={item.label} href={item.href}>
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="transition-colors hover:text-white"
+                  >
                     {item.label}
                   </Link>
                 ))}
@@ -60,11 +74,27 @@ export default function Footer() {
                 Terhubung
               </h4>
               <div className="flex flex-col gap-[11px] text-sm">
-                {CONNECT.map((item) => (
-                  <Link key={item.label} href={item.href}>
-                    {item.label}
-                  </Link>
-                ))}
+                {CONNECT.map((item) =>
+                  item.external ? (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-white"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className="transition-colors hover:text-white"
+                    >
+                      {item.label}
+                    </Link>
+                  ),
+                )}
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import HomeArticles from "@/components/HomeArticles";
 import HomeEvents from "@/components/HomeEvents";
+import Honeycomb from "@/components/Honeycomb";
 
 const TOPICS = [
   {
@@ -68,32 +69,35 @@ export default function Beranda() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/kisah-kajian"
-                className="inline-flex items-center gap-2 rounded-xl bg-navy px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(22,49,91,0.20)]"
+                className="inline-flex items-center gap-2 rounded-xl bg-navy px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(22,49,91,0.20)] transition-transform hover:-translate-y-0.5"
               >
                 Baca Kajian →
               </Link>
               <Link
                 href="/agenda"
-                className="inline-flex items-center gap-2 rounded-xl border border-[#D8DDE6] bg-white px-6 py-3.5 text-[15px] font-semibold text-navy"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#D8DDE6] bg-white px-6 py-3.5 text-[15px] font-semibold text-navy transition-colors hover:border-navy"
               >
                 Lihat Agenda
               </Link>
             </div>
           </div>
-          <div className="flex min-w-[240px] flex-[0_1_320px] justify-center">
-            <div className="relative flex h-[300px] w-[300px] items-center justify-center">
-              <div className="absolute inset-0 rounded-full border border-[#EDEFF3] bg-white shadow-[0_24px_60px_rgba(22,49,91,0.14)]" />
-              <div className="absolute inset-[18px] rounded-full border border-dashed border-[#D8DDE6]" />
+          <div className="min-w-[280px] flex-[1_1_420px]">
+            <div className="relative overflow-hidden rounded-[20px] border border-border shadow-[0_24px_60px_rgba(22,49,91,0.16)]">
               <Image
-                src="/logo-annahl.jpg"
-                alt="Logo LDF An-Nahl"
-                width={200}
-                height={200}
+                src="/pengurus.webp"
+                alt="Pengurus LDF An-Nahl FKH USK periode 2026/2027"
+                width={1448}
+                height={1086}
                 priority
-                className="relative h-[200px] w-[200px] rounded-full object-cover"
+                className="h-auto w-full object-cover"
               />
-              <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap font-arabic text-[20px] text-navy opacity-55">
-                النَّحْل
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-dark/75 via-navy-dark/20 to-transparent px-5 pb-4 pt-12">
+                <span className="font-arabic text-[15px] text-gold opacity-90">
+                  النَّحْل
+                </span>
+                <p className="m-0 text-[13.5px] font-semibold leading-snug text-white">
+                  Keluarga pengurus An-Nahl · 2026/2027
+                </p>
               </div>
             </div>
           </div>
@@ -102,11 +106,12 @@ export default function Beranda() {
 
       {/* FEATURED: POJOK FIKIH VETERINER */}
       <section className="relative overflow-hidden bg-navy">
+        <Honeycomb opacity={0.07} />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(800px 360px at 90% 0%, rgba(197,162,77,0.14), transparent 60%), radial-gradient(700px 320px at -5% 100%, rgba(47,126,114,0.18), transparent 55%)",
+              "radial-gradient(700px 340px at 92% -10%, rgba(197,162,77,0.12), transparent 60%)",
           }}
         />
         <div className="relative mx-auto max-w-[1120px] px-5 pb-20 pt-18">
@@ -136,7 +141,7 @@ export default function Beranda() {
               <Link
                 key={topic.title}
                 href="/fikih-veteriner"
-                className="block rounded-2xl border border-white/[0.10] bg-[#1C3C6B] p-[26px]"
+                className="block rounded-2xl border border-white/[0.10] bg-[#1C3C6B] p-[26px] transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-[#22467d]"
               >
                 <div className="mb-5 flex h-[52px] w-[52px] items-center justify-center rounded-[13px] bg-teal/[0.22]">
                   <svg
@@ -216,13 +221,7 @@ export default function Beranda() {
       <section className="bg-white">
         <div className="mx-auto max-w-[1120px] px-5 pb-8 pt-2">
           <div className="relative flex flex-wrap items-center justify-between gap-6 overflow-hidden rounded-[20px] bg-navy p-[clamp(28px,5vw,48px)]">
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(500px 220px at 100% 0%, rgba(197,162,77,0.16), transparent 60%)",
-              }}
-            />
+            <Honeycomb opacity={0.08} />
             <div className="relative max-w-[560px]">
               <h2 className="mb-2.5 font-serif text-[clamp(24px,3.6vw,32px)] font-bold tracking-[-0.01em] text-white">
                 Tumbuh bersama keluarga An-Nahl

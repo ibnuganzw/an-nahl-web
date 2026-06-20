@@ -45,7 +45,23 @@ export default function HomeEvents() {
   }, [supabase]);
 
   if (loading) {
-    return <p className="py-4 text-muted">Memuat agenda…</p>;
+    return (
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[18px]">
+        {[0, 1].map((i) => (
+          <div
+            key={i}
+            className="flex gap-[18px] rounded-2xl border border-border bg-white p-[22px]"
+          >
+            <div className="h-[72px] w-[72px] flex-none animate-pulse rounded-xl bg-[#EDEFF3]" />
+            <div className="flex-1">
+              <div className="mb-3 h-4 w-24 animate-pulse rounded-full bg-[#EDEFF3]" />
+              <div className="mb-2 h-5 w-3/4 animate-pulse rounded bg-[#EDEFF3]" />
+              <div className="h-4 w-1/2 animate-pulse rounded bg-[#EDEFF3]" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   }
   if (events.length === 0) {
     return (

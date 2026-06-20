@@ -202,7 +202,7 @@ export default function FikihView() {
                   <button
                     key={a.id}
                     onClick={() => open(a.id)}
-                    className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-white text-left"
+                    className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-white text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,49,91,0.10)]"
                   >
                     <div style={coverStyle(catMeta(a.cat).c, 150)}>
                       <span className="font-arabic text-[28px] text-white/85">
@@ -285,7 +285,7 @@ export default function FikihView() {
               <button
                 key={a.id}
                 onClick={() => open(a.id)}
-                className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-white text-left"
+                className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-white text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,49,91,0.10)]"
               >
                 <div style={coverStyle(catMeta(a.cat).c, 150)}>
                   <span className="font-arabic text-[34px] text-white/85">
