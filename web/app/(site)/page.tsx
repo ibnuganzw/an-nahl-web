@@ -7,6 +7,7 @@ import Honeycomb from "@/components/Honeycomb";
 const TOPICS = [
   {
     title: "Kesejahteraan Hewan dalam Islam",
+    cat: "kesejahteraan",
     desc: (
       <>
         Prinsip <em>rahmah</em> dan amanah terhadap makhluk hidup dalam tuntunan
@@ -19,6 +20,7 @@ const TOPICS = [
   },
   {
     title: "Fikih Najis & Medis",
+    cat: "najis",
     desc: "Hukum najis, thaharah, dan penanganannya dalam konteks praktik klinis hewan.",
     icon: (
       <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7Z" />
@@ -26,6 +28,7 @@ const TOPICS = [
   },
   {
     title: "Penyembelihan Halal",
+    cat: "penyembelihan",
     desc: (
       <>
         Syarat sembelihan, <em>tadzkiyah</em>, dan etika menyembelih sesuai
@@ -127,7 +130,7 @@ export default function Beranda() {
             {TOPICS.map((topic) => (
               <Link
                 key={topic.title}
-                href="/fikih-veteriner"
+                href={`/fikih-veteriner?kategori=${topic.cat}`}
                 className="block rounded-2xl border border-border bg-white p-[26px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,49,91,0.10)]"
               >
                 <div className="mb-5 flex h-[52px] w-[52px] items-center justify-center rounded-[13px] bg-teal-bg">

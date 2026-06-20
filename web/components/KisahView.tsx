@@ -129,13 +129,15 @@ export default function KisahView() {
   if (view === "detail" && sel) {
     return (
       <div>
-        <article className="mx-auto max-w-[720px] px-5 pb-2 pt-9">
+        <div className="mx-auto max-w-[1120px] px-5 pt-8">
           <button
             onClick={goList}
-            className="mb-7 inline-flex cursor-pointer items-center gap-[7px] text-sm font-semibold text-muted2 hover:text-navy"
+            className="inline-flex cursor-pointer items-center gap-[7px] text-sm font-semibold text-muted2 hover:text-navy"
           >
             ← Kembali ke Kisah &amp; Kajian
           </button>
+        </div>
+        <article className="mx-auto max-w-[720px] px-5 pb-2 pt-7">
           <span style={badgeStyle(sel.cat)}>{catMeta(sel.cat).label}</span>
           <h1 className="mb-5 mt-[18px] font-serif text-[clamp(28px,5vw,44px)] font-bold leading-[1.12] tracking-[-0.015em] text-navy">
             {sel.title}
