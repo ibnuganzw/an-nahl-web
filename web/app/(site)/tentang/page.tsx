@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Honeycomb from "@/components/Honeycomb";
 
 export const metadata: Metadata = {
   title: "Tentang — LDF An-Nahl FKH USK",
@@ -78,43 +78,28 @@ export default function Tentang() {
   return (
     <div className="bg-white">
       {/* 1. PROFIL */}
-      <section className="relative overflow-hidden bg-bg-soft">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(820px 360px at 88% -10%, rgba(47,126,114,0.10), transparent 60%), radial-gradient(640px 300px at -5% 110%, rgba(22,49,91,0.07), transparent 55%)",
-          }}
+      <section className="relative overflow-hidden bg-navy text-white">
+        <Honeycomb
+          className="absolute right-0 top-0 h-[260px] w-[340px]"
+          opacity={0.12}
+          fade="top-right"
         />
-        <div className="relative mx-auto flex max-w-[1120px] flex-wrap items-center gap-11 px-5 pb-16 pt-15">
-          <div className="min-w-[300px] flex-[1_1_380px]">
-            <span className="mb-4 inline-flex items-center gap-2 text-[12.5px] font-bold uppercase tracking-[0.14em] text-teal">
-              Tentang kami
+        <div className="relative mx-auto max-w-[1120px] px-5 pb-12 pt-12">
+          <div className="mb-4 flex items-center gap-3">
+            <span className="h-px w-9 flex-none bg-gold" />
+            <span className="text-[11.5px] font-bold uppercase tracking-[0.2em] text-gold">
+              Tentang Kami
             </span>
-            <h1 className="mb-[18px] font-serif text-[clamp(32px,5.5vw,50px)] font-bold leading-[1.1] tracking-[-0.015em] text-navy">
-              Rumah bertumbuh mahasiswa FKH USK
-            </h1>
-            <p className="m-0 max-w-[540px] text-[clamp(16px,2.3vw,18px)] leading-[1.7] text-muted">
-              Lembaga Dakwah Fakultas (LDF) An-Nahl adalah UKM keislaman di
-              Fakultas Kedokteran Hewan Universitas Syiah Kuala — wadah dakwah
-              yang dekat dengan keseharian dunia veteriner, tempat mahasiswa
-              tumbuh secara spiritual sekaligus profesional.
-            </p>
           </div>
-          <div className="flex min-w-[220px] flex-[0_1_280px] justify-center">
-            <div className="relative flex h-[240px] w-[240px] items-center justify-center">
-              <div className="absolute inset-0 rounded-full border border-[#EDEFF3] bg-white shadow-[0_20px_50px_rgba(22,49,91,0.12)]" />
-              <div className="absolute inset-4 rounded-full border border-dashed border-[#D8DDE6]" />
-              <Image
-                src="/logo-annahl.jpg"
-                alt="Logo LDF An-Nahl"
-                width={168}
-                height={168}
-                priority
-                className="relative h-[168px] w-[168px] rounded-full object-cover"
-              />
-            </div>
-          </div>
+          <h1 className="mb-4 max-w-[720px] font-serif text-[clamp(30px,5vw,48px)] font-bold leading-[1.08] tracking-[-0.015em]">
+            Rumah bertumbuh mahasiswa FKH USK
+          </h1>
+          <p className="m-0 max-w-[600px] text-[clamp(15px,2.2vw,17.5px)] leading-[1.65] text-[#C5D0E0]">
+            Lembaga Dakwah Fakultas (LDF) An-Nahl adalah UKM keislaman di
+            Fakultas Kedokteran Hewan Universitas Syiah Kuala — wadah dakwah
+            yang dekat dengan keseharian dunia veteriner, tempat mahasiswa
+            tumbuh secara spiritual sekaligus profesional.
+          </p>
         </div>
       </section>
 

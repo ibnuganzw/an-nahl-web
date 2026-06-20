@@ -47,7 +47,8 @@ export default function GabungPage() {
       <div className="relative mx-auto flex max-w-[1120px] flex-wrap items-start gap-11 px-5 pb-20 pt-14">
         {/* LEFT: invitation */}
         <div className="min-w-[300px] flex-[1_1_380px] pt-1.5">
-          <span className="mb-[18px] inline-flex items-center gap-2 text-[12.5px] font-bold uppercase tracking-[0.14em] text-teal">
+          <span className="mb-[18px] inline-flex items-center gap-3 text-[11.5px] font-bold uppercase tracking-[0.2em] text-teal">
+            <span className="h-px w-9 flex-none bg-teal" />
             Pendaftaran anggota
           </span>
           <h1 className="mb-[18px] font-serif text-[clamp(32px,5.5vw,50px)] font-bold leading-[1.1] tracking-[-0.015em] text-navy">

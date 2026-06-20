@@ -4,6 +4,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { mapArticle, paragraphs, type UiArticle } from "@/lib/articles";
 import type { ArticleRow } from "@/lib/supabase/types";
+import Honeycomb from "@/components/Honeycomb";
 
 const FIKIH_CATS = ["kesejahteraan", "najis", "penyembelihan", "lainnya"];
 
@@ -16,49 +17,11 @@ const CATS: Record<string, { label: string; c: string; wash: string }> = {
 const FALLBACK = { label: "Artikel", c: "#5B6573", wash: "#EEF0F3" };
 const catMeta = (cat: string) => CATS[cat] ?? FALLBACK;
 
-const GLYPH: Record<string, string> = {
-  kesejahteraan: "ﺭ",
-  najis: "ط",
-  penyembelihan: "ﺫ",
-  lainnya: "ﺝ",
-};
-const glyphFor = (cat: string) => GLYPH[cat] ?? "﷽";
-
-const DARKEN: Record<string, string> = {
-  "#2F7E72": "#256258",
-  "#16315B": "#0E2545",
-  "#C5A24D": "#A8862F",
-  "#5B6573": "#414956",
-};
-const darken = (c: string) => DARKEN[c] || c;
-
-function coverStyle(c: string, h: number): CSSProperties {
-  return {
-    height: h,
-    background: `linear-gradient(135deg,${c}, ${darken(c)})`,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flex: "none",
-  };
-}
-
-function heroStyle(c: string): CSSProperties {
-  return {
-    borderRadius: 16,
-    height: "clamp(220px,42vw,360px)",
-    background: `linear-gradient(135deg,${c}, ${darken(c)})`,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  };
-}
-
 function badgeStyle(cat: string): CSSProperties {
   const k = catMeta(cat);
   return {
     display: "inline-block",
-    fontSize: "11.5px",
+    fontSize: "11px",
     fontWeight: 700,
     letterSpacing: "0.04em",
     textTransform: "uppercase",
@@ -129,25 +92,41 @@ export default function FikihView() {
   const sel = articles.find((a) => a.id === selectedId) ?? null;
   const related = articles.filter((a) => a.id !== selectedId).slice(0, 3);
 
+  // Kartu artikel editorial — aksen warna kategori, tanpa cover gradient.
+  const ArticleCard = ({ a }: { a: UiArticle }) => (
+    <button
+      onClick={() => open(a.id)}
+      style={{ borderTop: `3px solid ${catMeta(a.cat).c}` }}
+      className="flex cursor-pointer flex-col rounded-[14px] border border-border border-t-[3px] bg-white p-6 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,49,91,0.10)]"
+    >
+      <div className="mb-3 flex flex-wrap items-center gap-2.5">
+        <span style={badgeStyle(a.cat)}>{catMeta(a.cat).label}</span>
+        <span className="text-[12.5px] text-light">{a.readTime}</span>
+      </div>
+      <h3 className="mb-2 font-serif text-[19px] font-semibold leading-[1.3] text-navy">
+        {a.title}
+      </h3>
+      <p className="m-0 text-[14.5px] leading-[1.6] text-muted">{a.summary}</p>
+    </button>
+  );
+
   // ---------- DETAIL ----------
   if (view === "detail" && sel) {
     const body = paragraphs(sel.body);
     return (
       <div>
-        <article className="mx-auto max-w-[760px] px-5 pb-2 pt-8">
+        <article className="mx-auto max-w-[720px] px-5 pb-2 pt-9">
           <button
             onClick={goList}
-            className="mb-7 inline-flex cursor-pointer items-center gap-[7px] text-sm font-semibold text-muted2"
+            className="mb-7 inline-flex cursor-pointer items-center gap-[7px] text-sm font-semibold text-muted2 hover:text-navy"
           >
             ← Kembali ke Pojok Fikih Veteriner
           </button>
-          <div>
-            <span style={badgeStyle(sel.cat)}>{catMeta(sel.cat).label}</span>
-          </div>
-          <h1 className="my-[18px] mb-5 font-serif text-[clamp(28px,5vw,42px)] font-bold leading-[1.15] tracking-[-0.015em] text-navy">
+          <span style={badgeStyle(sel.cat)}>{catMeta(sel.cat).label}</span>
+          <h1 className="mb-5 mt-[18px] font-serif text-[clamp(28px,5vw,44px)] font-bold leading-[1.12] tracking-[-0.015em] text-navy">
             {sel.title}
           </h1>
-          <div className="flex flex-wrap items-center gap-3.5 border-b border-border pb-7">
+          <div className="flex flex-wrap items-center gap-3.5 pb-7">
             <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-navy font-serif text-base font-semibold text-white">
               {sel.author.charAt(0)}
             </div>
@@ -160,23 +139,19 @@ export default function FikihView() {
               </span>
             </div>
           </div>
+          <div
+            className="h-[3px] w-full rounded-full"
+            style={{ background: catMeta(sel.cat).c }}
+          />
         </article>
 
-        <div className="mx-auto mt-7 max-w-[900px] px-5">
-          <div style={heroStyle(catMeta(sel.cat).c)}>
-            <span className="font-arabic text-[clamp(40px,8vw,72px)] text-white/90">
-              {glyphFor(sel.cat)}
-            </span>
-          </div>
-        </div>
-
-        <article className="mx-auto max-w-[680px] px-5 pb-6 pt-10 text-[18px] leading-[1.8] text-body">
+        <article className="mx-auto max-w-[680px] px-5 pb-6 pt-9 text-[18px] leading-[1.8] text-body">
           {body.length > 0 ? (
             body.map((p, i) =>
               i === 0 ? (
                 <p
                   key={i}
-                  className="mb-6 font-serif text-[19px] font-semibold leading-[1.6] text-navy"
+                  className="mb-6 font-serif text-[20px] font-medium leading-[1.6] text-navy"
                 >
                   {p}
                 </p>
@@ -193,29 +168,13 @@ export default function FikihView() {
 
         {related.length > 0 && (
           <section className="mt-6 bg-bg-soft">
-            <div className="mx-auto max-w-[1120px] px-5 pb-18 pt-14">
-              <h2 className="mb-7 font-serif text-[clamp(22px,3.5vw,30px)] font-bold tracking-[-0.01em] text-navy">
+            <div className="mx-auto max-w-[1120px] px-5 pb-16 pt-12">
+              <h2 className="mb-7 font-serif text-[clamp(22px,3.5vw,28px)] font-bold tracking-[-0.01em] text-navy">
                 Artikel terkait
               </h2>
               <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-[18px]">
                 {related.map((a) => (
-                  <button
-                    key={a.id}
-                    onClick={() => open(a.id)}
-                    className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-white text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,49,91,0.10)]"
-                  >
-                    <div style={coverStyle(catMeta(a.cat).c, 150)}>
-                      <span className="font-arabic text-[28px] text-white/85">
-                        {glyphFor(a.cat)}
-                      </span>
-                    </div>
-                    <div className="p-5">
-                      <span style={badgeStyle(a.cat)}>{catMeta(a.cat).label}</span>
-                      <h3 className="mt-3 font-serif text-[17.5px] font-semibold leading-[1.3] text-navy">
-                        {a.title}
-                      </h3>
-                    </div>
-                  </button>
+                  <ArticleCard key={a.id} a={a} />
                 ))}
               </div>
             </div>
@@ -228,30 +187,32 @@ export default function FikihView() {
   // ---------- LIST ----------
   return (
     <div>
-      <section className="relative overflow-hidden bg-navy">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(800px 360px at 88% -10%, rgba(197,162,77,0.16), transparent 60%), radial-gradient(700px 320px at -5% 110%, rgba(47,126,114,0.20), transparent 55%)",
-          }}
+      {/* Intro band */}
+      <section className="relative overflow-hidden bg-navy text-white">
+        <Honeycomb
+          className="absolute right-0 top-0 h-[240px] w-[320px]"
+          opacity={0.12}
+          fade="top-right"
         />
-        <div className="relative mx-auto max-w-[1120px] px-5 pb-15 pt-14">
-          <span className="mb-4 inline-flex items-center gap-2 text-[12.5px] font-bold uppercase tracking-[0.14em] text-gold">
-            ★ Rubrik Unggulan
-          </span>
-          <h1 className="mb-4 max-w-[680px] font-serif text-[clamp(32px,5.5vw,48px)] font-bold leading-[1.1] tracking-[-0.015em] text-white">
+        <div className="relative mx-auto max-w-[1120px] px-5 pb-12 pt-12">
+          <div className="mb-4 flex items-center gap-3">
+            <span className="h-px w-9 flex-none bg-gold" />
+            <span className="text-[11.5px] font-bold uppercase tracking-[0.2em] text-gold">
+              Rubrik Unggulan
+            </span>
+          </div>
+          <h1 className="mb-4 max-w-[680px] font-serif text-[clamp(30px,5vw,46px)] font-bold leading-[1.08] tracking-[-0.015em]">
             Pojok Fikih Veteriner
           </h1>
-          <p className="m-0 max-w-[600px] text-[clamp(15px,2.2vw,17px)] leading-[1.65] text-footer-text">
-            Tempat ilmu syar&apos;i berjumpa praktik kedokteran hewan. Panduan
-            ringkas, bersumber, dan dekat dengan keseharian mahasiswa FKH — dari
-            kandang hingga ruang praktik.
+          <p className="m-0 max-w-[600px] text-[clamp(15px,2.2vw,17px)] leading-[1.65] text-[#C5D0E0]">
+            Tempat ilmu syar&apos;i berjumpa praktik kedokteran hewan — panduan
+            ringkas, bersumber, dan dekat dengan keseharian mahasiswa FKH.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1120px] px-5 pb-20 pt-9">
+      {/* Filters + grid */}
+      <section className="mx-auto max-w-[1120px] px-5 pb-16 pt-9">
         <div className="mb-8 flex flex-wrap gap-2.5">
           {FILTER_DEFS.map((f) => {
             const active = filter === f.key;
@@ -262,7 +223,7 @@ export default function FikihView() {
                 className={`cursor-pointer rounded-full border px-4 py-[9px] text-[13.5px] font-semibold transition-all ${
                   active
                     ? "border-navy bg-navy text-white"
-                    : "border-[#D8DDE6] bg-white text-muted"
+                    : "border-[#D8DDE6] bg-white text-muted hover:border-navy"
                 }`}
               >
                 {f.label}
@@ -280,31 +241,9 @@ export default function FikihView() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] gap-[22px]">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] gap-[18px]">
             {filtered.map((a) => (
-              <button
-                key={a.id}
-                onClick={() => open(a.id)}
-                className="flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-white text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,49,91,0.10)]"
-              >
-                <div style={coverStyle(catMeta(a.cat).c, 150)}>
-                  <span className="font-arabic text-[34px] text-white/85">
-                    {glyphFor(a.cat)}
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col p-[22px]">
-                  <div className="mb-3 flex items-center gap-2.5">
-                    <span style={badgeStyle(a.cat)}>{catMeta(a.cat).label}</span>
-                    <span className="text-[13px] text-light">{a.readTime}</span>
-                  </div>
-                  <h3 className="mb-2.5 font-serif text-[19px] font-semibold leading-[1.3] text-navy">
-                    {a.title}
-                  </h3>
-                  <p className="m-0 text-[14.5px] leading-[1.6] text-muted">
-                    {a.summary}
-                  </p>
-                </div>
-              </button>
+              <ArticleCard key={a.id} a={a} />
             ))}
           </div>
         )}
