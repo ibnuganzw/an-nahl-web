@@ -4,6 +4,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { formatTanggal } from "@/lib/date-id";
 import type { EventRow } from "@/lib/supabase/types";
+import Honeycomb from "@/components/Honeycomb";
 
 type EventType = "kajian" | "workshop" | "mabit" | "baksos";
 
@@ -387,17 +388,27 @@ export default function AgendaView() {
   // ---------- LIST ----------
   return (
     <div>
-      <section className="mx-auto max-w-[1120px] px-5 pb-2 pt-14">
-        <span className="mb-4 inline-flex items-center gap-2 text-[12.5px] font-bold uppercase tracking-[0.14em] text-teal">
-          Kegiatan An-Nahl
-        </span>
-        <h1 className="mb-4 font-serif text-[clamp(32px,5.5vw,48px)] font-bold leading-[1.1] tracking-[-0.015em] text-navy">
-          Agenda
-        </h1>
-        <p className="m-0 max-w-[600px] text-[clamp(15px,2.2vw,17px)] leading-[1.7] text-muted">
-          Kajian rutin, workshop, dan kegiatan syiar di lingkungan FKH USK.
-          Terbuka untuk seluruh mahasiswa — daftar dan ikut bertumbuh bersama.
-        </p>
+      <section className="relative overflow-hidden bg-navy text-white">
+        <Honeycomb
+          className="absolute right-0 top-0 h-[240px] w-[320px]"
+          opacity={0.12}
+          fade="top-right"
+        />
+        <div className="relative mx-auto max-w-[1120px] px-5 pb-12 pt-12">
+          <div className="mb-4 flex items-center gap-3">
+            <span className="h-px w-9 flex-none bg-gold" />
+            <span className="text-[11.5px] font-bold uppercase tracking-[0.2em] text-gold">
+              Kegiatan An-Nahl
+            </span>
+          </div>
+          <h1 className="mb-4 font-serif text-[clamp(30px,5vw,46px)] font-bold leading-[1.08] tracking-[-0.015em]">
+            Agenda
+          </h1>
+          <p className="m-0 max-w-[600px] text-[clamp(15px,2.2vw,17px)] leading-[1.65] text-[#C5D0E0]">
+            Kajian rutin, workshop, dan kegiatan syiar di lingkungan FKH USK.
+            Terbuka untuk seluruh mahasiswa — daftar dan ikut bertumbuh bersama.
+          </p>
+        </div>
       </section>
 
       {loadingEvents ? (
