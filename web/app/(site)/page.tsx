@@ -80,20 +80,23 @@ export default function Beranda() {
               </Link>
             </div>
           </div>
-          <div className="flex min-w-[240px] flex-[0_1_320px] justify-center">
-            <div className="relative flex h-[300px] w-[300px] items-center justify-center">
-              <div className="absolute inset-0 rounded-full border border-[#EDEFF3] bg-white shadow-[0_24px_60px_rgba(22,49,91,0.14)]" />
-              <div className="absolute inset-[18px] rounded-full border border-dashed border-[#D8DDE6]" />
+          <div className="min-w-[280px] flex-[1_1_420px]">
+            <div className="relative overflow-hidden rounded-[20px] border border-border shadow-[0_24px_60px_rgba(22,49,91,0.16)]">
               <Image
-                src="/logo-annahl.jpg"
-                alt="Logo LDF An-Nahl"
-                width={200}
-                height={200}
+                src="/pengurus.webp"
+                alt="Pengurus LDF An-Nahl FKH USK periode 2026/2027"
+                width={1448}
+                height={1086}
                 priority
-                className="relative h-[200px] w-[200px] rounded-full object-cover"
+                className="h-auto w-full object-cover"
               />
-              <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap font-arabic text-[20px] text-navy opacity-55">
-                النَّحْل
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-dark/75 via-navy-dark/20 to-transparent px-5 pb-4 pt-12">
+                <span className="font-arabic text-[15px] text-gold opacity-90">
+                  النَّحْل
+                </span>
+                <p className="m-0 text-[13.5px] font-semibold leading-snug text-white">
+                  Keluarga pengurus An-Nahl · 2026/2027
+                </p>
               </div>
             </div>
           </div>
