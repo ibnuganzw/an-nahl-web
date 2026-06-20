@@ -54,8 +54,8 @@ export default function Beranda() {
           sizes="100vw"
           className="object-cover object-[center_28%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy-dark/90 to-navy-dark/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/5 to-navy-dark/35" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/90 via-navy-dark/55 to-navy-dark/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/55 via-transparent to-navy-dark/20" />
         <Honeycomb className="absolute right-0 top-0 h-[300px] w-[360px]" opacity={0.14} fade="top-right" />
 
         <div className="relative mx-auto flex min-h-[clamp(440px,66vh,580px)] max-w-[1120px] flex-col justify-center px-5 py-14">
@@ -66,28 +66,28 @@ export default function Beranda() {
                 Lembaga Dakwah Fakultas · FKH USK
               </span>
             </div>
-            <h1 className="font-serif text-[clamp(40px,7.2vw,72px)] font-bold leading-[1.02] tracking-[-0.02em]">
+            <h1 className="text-[clamp(40px,7.2vw,72px)] font-extrabold leading-[1.04] tracking-[-0.02em]">
               Merawat hewan,
               <br />
               <span className="text-gold">menjaga iman.</span>
             </h1>
-            <p className="mt-6 max-w-[500px] text-[clamp(16px,2.3vw,18.5px)] leading-[1.6] text-[#C5D0E0]">
-              Tempat mahasiswa Kedokteran Hewan USK belajar Islam berdampingan
-              dengan ilmu merawat makhluk hidup — lewat kajian, mentoring, dan
-              pengabdian.
+            <p className="mt-6 max-w-[540px] text-[clamp(16px,2.3vw,18.5px)] leading-relaxed text-[#DCE4F0]">
+              Kami adalah Serdadu Lebah, Bersenjata Dakwah. Sebuah keluarga bagi
+              mahasiswa FKH USK untuk melangkah bersama, mempererat ukhuwah, dan
+              menebar nilai-nilai Islam di lingkungan kampus.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
                 href="/gabung"
-                className="inline-flex items-center gap-2 rounded-xl bg-gold px-7 py-3.5 text-[15px] font-bold text-gold-on shadow-[0_10px_30px_rgba(197,162,77,0.30)] transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-xl bg-amber-400 px-7 py-3.5 text-[15px] font-bold text-navy-dark shadow-[0_10px_30px_rgba(245,184,46,0.40)] transition hover:-translate-y-0.5 hover:bg-amber-300"
               >
-                Gabung sekarang →
+                Gabung Bersama Kami
               </Link>
               <Link
-                href="/kisah-kajian"
+                href="/tentang"
                 className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/[0.06] px-7 py-3.5 text-[15px] font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/[0.14]"
               >
-                Baca Kajian
+                Jelajahi An-Nahl
               </Link>
             </div>
           </div>
