@@ -1,12 +1,25 @@
-import { createBrowserClient } from "@supabase/ssr";
+import { createClient as createSupabaseClient, type SupabaseClient } from "@supabase/supabase-js";
 
 /**
- * Supabase client untuk dipakai di Client Components (browser).
- * Membaca kredensial publik dari environment (lihat .env.local).
+ * Supabase client untuk Client Components (browser).
+ * Singleton + persistSession (localStorage) supaya sesi login bertahan
+ * antar kunjungan/refresh — admin tidak perlu login ulang terus.
  */
+let client: SupabaseClient | undefined;
+
 export function createClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  );
+  if (!client) {
+    client = createSupabaseClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+          storageKey: "annahl-auth",
+        },
+      },
+    );
+  }
+  return client;
 }
