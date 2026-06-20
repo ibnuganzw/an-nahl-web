@@ -41,67 +41,61 @@ const TOPICS = [
 export default function Beranda() {
   return (
     <div className="bg-white">
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-bg-soft">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(900px 380px at 85% -10%, rgba(47,126,114,0.10), transparent 60%), radial-gradient(700px 320px at 0% 110%, rgba(22,49,91,0.07), transparent 55%)",
-          }}
+      {/* HERO — full-bleed sinematik */}
+      <section className="relative isolate overflow-hidden bg-navy-dark text-white">
+        <Image
+          src="/pengurus.webp"
+          alt="Keluarga pengurus LDF An-Nahl FKH USK"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[center_28%]"
         />
-        <div className="relative mx-auto flex max-w-[1120px] flex-wrap items-center gap-10 px-5 pb-18 pt-16">
-          <div className="min-w-[300px] flex-[1_1_380px]">
-            <span className="mb-[22px] inline-flex items-center gap-2 rounded-full border border-border bg-white px-3.5 py-1.5 text-[12.5px] font-semibold tracking-[0.04em] text-teal">
-              <span className="inline-block h-[7px] w-[7px] rounded-full bg-teal" />
-              Dakwah khas Fakultas Kedokteran Hewan
-            </span>
-            <h1 className="mb-[18px] font-serif text-[clamp(34px,6vw,54px)] font-bold leading-[1.08] tracking-[-0.015em] text-navy">
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy-dark/90 to-navy-dark/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/5 to-navy-dark/35" />
+        <Honeycomb opacity={0.05} />
+
+        <div className="relative mx-auto flex min-h-[clamp(540px,82vh,720px)] max-w-[1120px] flex-col justify-center px-5 py-20">
+          <div className="max-w-[640px]">
+            <div className="mb-6 flex items-center gap-3">
+              <span className="h-px w-9 flex-none bg-gold" />
+              <span className="text-[11.5px] font-bold uppercase tracking-[0.2em] text-gold">
+                Lembaga Dakwah Fakultas · FKH USK
+              </span>
+            </div>
+            <h1 className="font-serif text-[clamp(40px,7.2vw,72px)] font-bold leading-[1.02] tracking-[-0.02em]">
               Merawat hewan,
               <br />
               <span className="text-gold">menjaga iman.</span>
             </h1>
-            <p className="mb-[30px] max-w-[520px] text-[clamp(16px,2.4vw,18px)] leading-[1.65] text-muted">
-              Ruang dakwah bagi mahasiswa FKH USK — tempat syariat Islam dan
-              dunia kedokteran hewan bertemu. Tumbuh secara spiritual sekaligus
-              profesional.
+            <p className="mt-6 max-w-[500px] text-[clamp(16px,2.3vw,18.5px)] leading-[1.6] text-[#C5D0E0]">
+              Tempat mahasiswa Kedokteran Hewan USK belajar Islam berdampingan
+              dengan ilmu merawat makhluk hidup — lewat kajian, mentoring, dan
+              pengabdian.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link
+                href="/gabung"
+                className="inline-flex items-center gap-2 rounded-xl bg-gold px-7 py-3.5 text-[15px] font-bold text-gold-on shadow-[0_10px_30px_rgba(197,162,77,0.30)] transition-transform hover:-translate-y-0.5"
+              >
+                Gabung sekarang →
+              </Link>
               <Link
                 href="/kisah-kajian"
-                className="inline-flex items-center gap-2 rounded-xl bg-navy px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(22,49,91,0.20)] transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/[0.06] px-7 py-3.5 text-[15px] font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/[0.14]"
               >
-                Baca Kajian →
+                Baca Kajian
               </Link>
-              <Link
-                href="/agenda"
-                className="inline-flex items-center gap-2 rounded-xl border border-[#D8DDE6] bg-white px-6 py-3.5 text-[15px] font-semibold text-navy transition-colors hover:border-navy"
-              >
-                Lihat Agenda
-              </Link>
-            </div>
-          </div>
-          <div className="min-w-[280px] flex-[1_1_420px]">
-            <div className="relative overflow-hidden rounded-[20px] border border-border shadow-[0_24px_60px_rgba(22,49,91,0.16)]">
-              <Image
-                src="/pengurus.webp"
-                alt="Pengurus LDF An-Nahl FKH USK periode 2026/2027"
-                width={1448}
-                height={1086}
-                priority
-                className="h-auto w-full object-cover"
-              />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-dark/75 via-navy-dark/20 to-transparent px-5 pb-4 pt-12">
-                <span className="font-arabic text-[15px] text-gold opacity-90">
-                  النَّحْل
-                </span>
-                <p className="m-0 text-[13.5px] font-semibold leading-snug text-white">
-                  Keluarga pengurus An-Nahl · 2026/2027
-                </p>
-              </div>
             </div>
           </div>
         </div>
+
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -bottom-5 right-3 select-none font-arabic text-[clamp(82px,15vw,176px)] leading-none text-gold/10"
+        >
+          النَّحْل
+        </span>
       </section>
 
       {/* FEATURED: POJOK FIKIH VETERINER */}
@@ -114,11 +108,12 @@ export default function Beranda() {
               "radial-gradient(700px 340px at 92% -10%, rgba(197,162,77,0.12), transparent 60%)",
           }}
         />
-        <div className="relative mx-auto max-w-[1120px] px-5 pb-20 pt-18">
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-5">
+        <div className="relative mx-auto max-w-[1120px] px-5 pb-16 pt-14">
+          <div className="mb-9 flex flex-wrap items-end justify-between gap-5">
             <div className="max-w-[620px]">
-              <span className="mb-3.5 inline-flex items-center gap-2 text-[12.5px] font-bold uppercase tracking-[0.14em] text-gold">
-                ★ Rubrik Unggulan
+              <span className="mb-3.5 inline-flex items-center gap-3 text-[11.5px] font-bold uppercase tracking-[0.2em] text-gold">
+                <span className="h-px w-9 flex-none bg-gold" />
+                Rubrik Unggulan
               </span>
               <h2 className="mb-3 font-serif text-[clamp(28px,4.5vw,40px)] font-bold leading-[1.12] tracking-[-0.01em] text-white">
                 Pojok Fikih Veteriner
@@ -174,7 +169,7 @@ export default function Beranda() {
 
       {/* KISAH & KAJIAN */}
       <section className="bg-white">
-        <div className="mx-auto max-w-[1120px] px-5 py-18">
+        <div className="mx-auto max-w-[1120px] px-5 py-14">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
               <span className="mb-2.5 block text-[12.5px] font-bold uppercase tracking-[0.12em] text-teal">
@@ -198,7 +193,7 @@ export default function Beranda() {
 
       {/* AGENDA */}
       <section className="bg-bg-soft">
-        <div className="mx-auto max-w-[1120px] px-5 py-18">
+        <div className="mx-auto max-w-[1120px] px-5 py-14">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
               <span className="mb-2.5 block text-[12.5px] font-bold uppercase tracking-[0.12em] text-teal">
