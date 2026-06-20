@@ -1,17 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import PageHead from "@/components/admin/PageHead";
-import AdminModal, {
-  adminField,
-  adminLabel,
-} from "@/components/admin/AdminModal";
+import AdminModal from "@/components/admin/AdminModal";
 import {
   KISAH_CATS,
   isKisahCat,
   useAdminData,
   type Article,
-  type ArticleDraft,
   type KisahCat,
 } from "@/components/admin/AdminDataProvider";
 import { formatTanggalSingkat } from "@/lib/date-id";
@@ -21,39 +18,10 @@ const CAT_BADGE: Record<KisahCat, string> = {
   kajian: "bg-[#EAEEF5] text-navy",
 };
 
-const EMPTY: ArticleDraft = {
-  judul: "",
-  slug: "",
-  kategori: "kisah",
-  konten: "",
-  penulis: "",
-  status: "draft",
-  tanggal_publikasi: null,
-};
-
 export default function KisahAdmin() {
-  const { articles, loading, saveArticle, removeArticle } = useAdminData();
+  const { articles, loading, removeArticle } = useAdminData();
   const kisah = articles.filter((a) => isKisahCat(a.kategori));
-
-  const [draft, setDraft] = useState<ArticleDraft | null>(null);
   const [deleting, setDeleting] = useState<Article | null>(null);
-  const [saving, setSaving] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
-
-  const onSave = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!draft) return;
-    setSaving(true);
-    setFormError(null);
-    try {
-      await saveArticle(draft);
-      setDraft(null);
-    } catch {
-      setFormError("Gagal menyimpan. Pastikan kamu login sebagai admin.");
-    } finally {
-      setSaving(false);
-    }
-  };
 
   return (
     <>
@@ -61,15 +29,12 @@ export default function KisahAdmin() {
         title="Kisah & Kajian"
         desc="Kelola tulisan refleksi dan kajian An-Nahl."
         action={
-          <button
-            onClick={() => {
-              setFormError(null);
-              setDraft({ ...EMPTY });
-            }}
+          <Link
+            href="/admin/artikel?kategori=kisah"
             className="cursor-pointer rounded-[10px] bg-navy px-[18px] py-2.5 text-sm font-semibold text-white"
           >
             + Tambah tulisan
-          </button>
+          </Link>
         }
       />
 
@@ -132,15 +97,12 @@ export default function KisahAdmin() {
                     {formatTanggalSingkat(a.tanggal_publikasi) || "—"}
                   </td>
                   <td className="px-5 py-4 text-right whitespace-nowrap">
-                    <button
-                      onClick={() => {
-                        setFormError(null);
-                        setDraft({ ...a });
-                      }}
+                    <Link
+                      href={`/admin/artikel?id=${a.id}`}
                       className="cursor-pointer rounded-md px-2 py-1 text-[13px] font-semibold text-navy hover:bg-bg-soft"
                     >
                       Edit
-                    </button>
+                    </Link>
                     <button
                       onClick={() => setDeleting(a)}
                       className="cursor-pointer rounded-md px-2 py-1 text-[13px] font-semibold text-[#C0392B] hover:bg-[#FBEAE8]"
@@ -154,98 +116,6 @@ export default function KisahAdmin() {
           </table>
         </div>
       </div>
-
-      {draft && (
-        <AdminModal
-          title={draft.id ? "Edit tulisan" : "Tambah tulisan"}
-          onClose={() => setDraft(null)}
-        >
-          <form onSubmit={onSave}>
-            <label className={adminLabel}>Judul</label>
-            <input
-              required
-              value={draft.judul}
-              onChange={(e) => setDraft({ ...draft, judul: e.target.value })}
-              placeholder="Judul tulisan"
-              className={`${adminField} mb-4`}
-            />
-
-            <div className="flex flex-wrap gap-4">
-              <div className="min-w-[160px] flex-1">
-                <label className={adminLabel}>Kategori</label>
-                <select
-                  value={isKisahCat(draft.kategori) ? draft.kategori : "kisah"}
-                  onChange={(e) => setDraft({ ...draft, kategori: e.target.value })}
-                  className={`${adminField} mb-4`}
-                >
-                  {(Object.keys(KISAH_CATS) as KisahCat[]).map((k) => (
-                    <option key={k} value={k}>
-                      {KISAH_CATS[k]}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="min-w-[140px] flex-1">
-                <label className={adminLabel}>Status</label>
-                <select
-                  value={draft.status}
-                  onChange={(e) =>
-                    setDraft({ ...draft, status: e.target.value as Article["status"] })
-                  }
-                  className={`${adminField} mb-4`}
-                >
-                  <option value="draft">Draf (belum tampil)</option>
-                  <option value="published">Terbit (tampil di situs)</option>
-                </select>
-              </div>
-            </div>
-
-            <label className={adminLabel}>Penulis</label>
-            <input
-              required
-              value={draft.penulis}
-              onChange={(e) => setDraft({ ...draft, penulis: e.target.value })}
-              placeholder="Nama penulis"
-              className={`${adminField} mb-4`}
-            />
-
-            <label className={adminLabel}>Isi tulisan</label>
-            <textarea
-              required
-              value={draft.konten}
-              onChange={(e) => setDraft({ ...draft, konten: e.target.value })}
-              rows={7}
-              placeholder="Tulis isi tulisan di sini. Paragraf pertama dipakai sebagai ringkasan di situs."
-              className={`${adminField} mb-5 resize-y leading-[1.6]`}
-            />
-
-            {formError && (
-              <p className="mb-4 rounded-[10px] bg-[#FBEAE8] px-3.5 py-2.5 text-center text-[13px] font-medium text-[#C0392B]">
-                {formError}
-              </p>
-            )}
-
-            <div className="flex justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => setDraft(null)}
-                className="cursor-pointer rounded-[10px] border border-border bg-white px-4 py-2.5 text-sm font-semibold text-muted2"
-              >
-                Batal
-              </button>
-              <button
-                type="submit"
-                disabled={saving}
-                className={`rounded-[10px] bg-gold px-5 py-2.5 text-sm font-bold text-gold-on ${
-                  saving ? "cursor-not-allowed opacity-70" : "cursor-pointer"
-                }`}
-              >
-                {saving ? "Menyimpan…" : "Simpan"}
-              </button>
-            </div>
-          </form>
-        </AdminModal>
-      )}
 
       {deleting && (
         <AdminModal title="Hapus tulisan?" onClose={() => setDeleting(null)}>

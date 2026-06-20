@@ -2,9 +2,10 @@
 
 import { useEffect, useState, type CSSProperties } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { mapArticle, paragraphs, type UiArticle } from "@/lib/articles";
+import { mapArticle, type UiArticle } from "@/lib/articles";
 import type { ArticleRow } from "@/lib/supabase/types";
 import Honeycomb from "@/components/Honeycomb";
+import Markdown from "@/components/Markdown";
 
 const KISAH_CATS = ["kisah", "kajian"];
 
@@ -102,6 +103,14 @@ export default function KisahView() {
       style={{ borderTop: `3px solid ${catMeta(a.cat).c}` }}
       className="flex cursor-pointer flex-col rounded-[14px] border border-[#ECE6D8] border-t-[3px] bg-white p-6 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,49,91,0.10)]"
     >
+      {a.image && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={a.image}
+          alt={a.title}
+          className="mb-4 h-[160px] w-full rounded-[10px] object-cover"
+        />
+      )}
       <div className="mb-3 flex flex-wrap items-center gap-2.5">
         <span style={badgeStyle(a.cat)}>{catMeta(a.cat).label}</span>
         <span className="text-[12.5px] text-light">{a.readTime}</span>
@@ -118,7 +127,6 @@ export default function KisahView() {
 
   // ---------- DETAIL ----------
   if (view === "detail" && sel) {
-    const body = paragraphs(sel.body);
     return (
       <div>
         <article className="mx-auto max-w-[720px] px-5 pb-2 pt-9">
@@ -151,22 +159,20 @@ export default function KisahView() {
           />
         </article>
 
+        {sel.image && (
+          <div className="mx-auto mt-7 max-w-[860px] px-5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={sel.image}
+              alt={sel.title}
+              className="w-full rounded-[16px] border border-[#ECE6D8]"
+            />
+          </div>
+        )}
+
         <article className="mx-auto max-w-[680px] px-5 pb-6 pt-9 text-[19px] leading-[1.85] tracking-[0.002em] text-body">
-          {body.length > 0 ? (
-            body.map((p, i) =>
-              i === 0 ? (
-                <p
-                  key={i}
-                  className="mb-[26px] font-serif text-[21px] font-medium leading-[1.7] text-navy"
-                >
-                  {p}
-                </p>
-              ) : (
-                <p key={i} className="mb-[26px]">
-                  {p}
-                </p>
-              ),
-            )
+          {sel.body.trim() ? (
+            <Markdown>{sel.body}</Markdown>
           ) : (
             <p className="mb-[26px] italic text-light">Konten belum tersedia.</p>
           )}

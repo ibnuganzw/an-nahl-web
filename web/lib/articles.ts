@@ -7,6 +7,7 @@ export type UiArticle = {
   title: string;
   summary: string;
   body: string;
+  image: string | null;
   readTime: string;
   author: string;
   date: string;
@@ -30,6 +31,7 @@ export function mapArticle(row: ArticleRow): UiArticle {
     title: row.judul,
     summary: deriveSummary(row.konten),
     body: row.konten ?? "",
+    image: row.gambar_url ?? null,
     readTime: deriveReadTime(row.konten),
     author: row.penulis ?? "Tim An-Nahl",
     date: formatTanggalSingkat(row.tanggal_publikasi),

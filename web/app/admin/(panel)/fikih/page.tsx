@@ -1,17 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import PageHead from "@/components/admin/PageHead";
-import AdminModal, {
-  adminField,
-  adminLabel,
-} from "@/components/admin/AdminModal";
+import AdminModal from "@/components/admin/AdminModal";
 import {
   FIKIH_CATS,
   isFikihCat,
   useAdminData,
   type Article,
-  type ArticleDraft,
   type FikihCat,
 } from "@/components/admin/AdminDataProvider";
 import { formatTanggalSingkat } from "@/lib/date-id";
@@ -23,39 +20,10 @@ const CAT_BADGE: Record<FikihCat, string> = {
   lainnya: "bg-[#EEF0F3] text-muted",
 };
 
-const EMPTY: ArticleDraft = {
-  judul: "",
-  slug: "",
-  kategori: "kesejahteraan",
-  konten: "",
-  penulis: "Tim Fikih An-Nahl",
-  status: "draft",
-  tanggal_publikasi: null,
-};
-
 export default function FikihAdmin() {
-  const { articles, loading, saveArticle, removeArticle } = useAdminData();
+  const { articles, loading, removeArticle } = useAdminData();
   const fikih = articles.filter((a) => isFikihCat(a.kategori));
-
-  const [draft, setDraft] = useState<ArticleDraft | null>(null);
   const [deleting, setDeleting] = useState<Article | null>(null);
-  const [saving, setSaving] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
-
-  const onSave = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!draft) return;
-    setSaving(true);
-    setFormError(null);
-    try {
-      await saveArticle(draft);
-      setDraft(null);
-    } catch {
-      setFormError("Gagal menyimpan. Pastikan kamu login sebagai admin.");
-    } finally {
-      setSaving(false);
-    }
-  };
 
   return (
     <>
@@ -63,22 +31,17 @@ export default function FikihAdmin() {
         title="Artikel Fikih"
         desc="Kelola rubrik Pojok Fikih Veteriner."
         action={
-          <button
-            onClick={() => {
-              setFormError(null);
-              setDraft({ ...EMPTY });
-            }}
+          <Link
+            href="/admin/artikel?kategori=kesejahteraan"
             className="cursor-pointer rounded-[10px] bg-navy px-[18px] py-2.5 text-sm font-semibold text-white"
           >
             + Tambah artikel
-          </button>
+          </Link>
         }
       />
 
       <div className="p-7">
-        {loading && (
-          <p className="mb-4 text-sm text-muted">Memuat artikel…</p>
-        )}
+        {loading && <p className="mb-4 text-sm text-muted">Memuat artikel…</p>}
         <div className="overflow-hidden rounded-2xl border border-border bg-white">
           <table className="w-full border-collapse text-left">
             <thead>
@@ -136,15 +99,12 @@ export default function FikihAdmin() {
                     {formatTanggalSingkat(a.tanggal_publikasi) || "—"}
                   </td>
                   <td className="px-5 py-4 text-right whitespace-nowrap">
-                    <button
-                      onClick={() => {
-                        setFormError(null);
-                        setDraft({ ...a });
-                      }}
+                    <Link
+                      href={`/admin/artikel?id=${a.id}`}
                       className="cursor-pointer rounded-md px-2 py-1 text-[13px] font-semibold text-navy hover:bg-bg-soft"
                     >
                       Edit
-                    </button>
+                    </Link>
                     <button
                       onClick={() => setDeleting(a)}
                       className="cursor-pointer rounded-md px-2 py-1 text-[13px] font-semibold text-[#C0392B] hover:bg-[#FBEAE8]"
@@ -158,96 +118,6 @@ export default function FikihAdmin() {
           </table>
         </div>
       </div>
-
-      {draft && (
-        <AdminModal
-          title={draft.id ? "Edit artikel" : "Tambah artikel"}
-          onClose={() => setDraft(null)}
-        >
-          <form onSubmit={onSave}>
-            <label className={adminLabel}>Judul</label>
-            <input
-              required
-              value={draft.judul}
-              onChange={(e) => setDraft({ ...draft, judul: e.target.value })}
-              placeholder="Judul artikel"
-              className={`${adminField} mb-4`}
-            />
-
-            <div className="flex flex-wrap gap-4">
-              <div className="min-w-[160px] flex-1">
-                <label className={adminLabel}>Kategori</label>
-                <select
-                  value={isFikihCat(draft.kategori) ? draft.kategori : "kesejahteraan"}
-                  onChange={(e) => setDraft({ ...draft, kategori: e.target.value })}
-                  className={`${adminField} mb-4`}
-                >
-                  {(Object.keys(FIKIH_CATS) as FikihCat[]).map((k) => (
-                    <option key={k} value={k}>
-                      {FIKIH_CATS[k]}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="min-w-[140px] flex-1">
-                <label className={adminLabel}>Status</label>
-                <select
-                  value={draft.status}
-                  onChange={(e) =>
-                    setDraft({ ...draft, status: e.target.value as Article["status"] })
-                  }
-                  className={`${adminField} mb-4`}
-                >
-                  <option value="draft">Draf (belum tampil)</option>
-                  <option value="published">Terbit (tampil di situs)</option>
-                </select>
-              </div>
-            </div>
-
-            <label className={adminLabel}>Penulis</label>
-            <input
-              value={draft.penulis}
-              onChange={(e) => setDraft({ ...draft, penulis: e.target.value })}
-              className={`${adminField} mb-4`}
-            />
-
-            <label className={adminLabel}>Isi artikel</label>
-            <textarea
-              required
-              value={draft.konten}
-              onChange={(e) => setDraft({ ...draft, konten: e.target.value })}
-              rows={7}
-              placeholder="Tulis isi artikel di sini. Paragraf pertama dipakai sebagai ringkasan di situs."
-              className={`${adminField} mb-5 resize-y leading-[1.6]`}
-            />
-
-            {formError && (
-              <p className="mb-4 rounded-[10px] bg-[#FBEAE8] px-3.5 py-2.5 text-center text-[13px] font-medium text-[#C0392B]">
-                {formError}
-              </p>
-            )}
-
-            <div className="flex justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => setDraft(null)}
-                className="cursor-pointer rounded-[10px] border border-border bg-white px-4 py-2.5 text-sm font-semibold text-muted2"
-              >
-                Batal
-              </button>
-              <button
-                type="submit"
-                disabled={saving}
-                className={`rounded-[10px] bg-gold px-5 py-2.5 text-sm font-bold text-gold-on ${
-                  saving ? "cursor-not-allowed opacity-70" : "cursor-pointer"
-                }`}
-              >
-                {saving ? "Menyimpan…" : "Simpan"}
-              </button>
-            </div>
-          </form>
-        </AdminModal>
-      )}
 
       {deleting && (
         <AdminModal title="Hapus artikel?" onClose={() => setDeleting(null)}>
