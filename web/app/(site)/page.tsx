@@ -53,8 +53,9 @@ export default function Beranda() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy-dark/90 to-navy-dark/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-navy-dark via-navy-dark/5 to-navy-dark/35" />
+        <Honeycomb className="absolute right-0 top-0 h-[300px] w-[360px]" opacity={0.14} fade="top-right" />
 
-        <div className="relative mx-auto flex min-h-[clamp(540px,82vh,720px)] max-w-[1120px] flex-col justify-center px-5 py-20">
+        <div className="relative mx-auto flex min-h-[clamp(440px,66vh,580px)] max-w-[1120px] flex-col justify-center px-5 py-14">
           <div className="max-w-[640px]">
             <div className="mb-6 flex items-center gap-3">
               <span className="h-px w-9 flex-none bg-gold" />
